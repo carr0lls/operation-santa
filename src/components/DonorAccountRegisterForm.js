@@ -20,7 +20,7 @@ export default class DonorAccountRegisterForm extends React.Component {
 	render() {
 		return (
 			<div className={this.props.className} onSubmit={this.handleSubmit}>
-				<h4>Donate Christmas gifts to kids and families!</h4>
+				<h4>Donate Christmas gifts to families in need!</h4>
 				<form>
 					<div className="form-group">
 				    	<label htmlFor="first_name">First Name</label>
@@ -38,7 +38,7 @@ export default class DonorAccountRegisterForm extends React.Component {
 				    	<label htmlFor="password">Password</label>
 				    	<input type="password" className="form-control" ref="password" name="password" placeholder="Password" required />
 					</div>
-					<input type="hidden" ref="account_type" name="account_type" value="2" />
+					<input type="hidden" ref="account_type" name="account_type" value="donor" />
 					<button type="submit" className="btn btn-danger">Submit</button>
 				</form>
 			</div>

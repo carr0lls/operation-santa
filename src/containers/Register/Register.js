@@ -43,11 +43,15 @@ import { FamilyAccountRegisterForm, DonorAccountRegisterForm } from '../../compo
 			let formOneClasses = classnames('', {'hidden-xl-down': this.state.active !== 1})
 			let formTwoClasses = classnames('', {'hidden-xl-down': this.state.active !== 2})
 			return (
-				<div className="container">
+				<div className="container p-1">
 					<div className="register-btn-group mb-2 mx-auto">
 						<div className="btn-group" role="group">
-						  <button type="button" className={toggleOneClasses} onClick={this.toggleFormOne}>Donate a Gift</button>
-						  <button type="button" className={toggleTwoClasses} onClick={this.toggleFormTwo}>Receive a Gift</button>
+						  <button type="button" className={toggleOneClasses} onClick={this.toggleFormOne}>
+						  	Adopt Family
+						  </button>
+						  <button type="button" className={toggleTwoClasses} onClick={this.toggleFormTwo}>
+						  	Nominate Family
+						  </button>
 						</div>
 					</div>
 					<DonorAccountRegisterForm className={formOneClasses} onSubmitForm={this.submitForm}/>					

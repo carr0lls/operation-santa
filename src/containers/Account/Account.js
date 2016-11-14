@@ -25,7 +25,7 @@ import React from 'react'
 
 		render() {
 			return (
-				<div className="container">
+				<div className="container p-1">
 					Account Page
 				</div>
 			)

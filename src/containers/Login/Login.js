@@ -7,8 +7,8 @@ import React from 'react'
 				data: []
 			}
 			this.api = {
-				url: 'url', 
-				refresh: 1234
+				url: props.route.containerData.api.url,
+				refresh: props.route.containerData.api.pollInterval
 			}
 
 			this.renderData = this.renderData.bind(this)
@@ -25,7 +25,7 @@ import React from 'react'
 
 		render() {
 			return (
-				<div className="container">
+				<div className="container p-1">
 					Login Page
 				</div>
 			)
