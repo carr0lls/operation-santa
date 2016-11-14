@@ -4,7 +4,7 @@ import NavLink from './NavLink'
 export default class NavBar extends React.Component {
   render() {
     return (
-        <nav className="navbar navbar-full navbar-dark bg-danger mb-1">
+        <nav className="navbar navbar-full navbar-dark bg-danger mb-2">
           <NavLink className="navbar-brand" to="/" onlyActiveOnIndex>Operation Santa</NavLink>
           <ul className="nav navbar-nav">
             <li className="nav-item">

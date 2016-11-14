@@ -25,7 +25,7 @@ import React from 'react'
 
 		render() {
 			return (
-				<div>
+        		<div className="container">
 					Profile Page
 				</div>
 			)

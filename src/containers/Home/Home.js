@@ -25,7 +25,7 @@ import React from 'react'
 
 		render() {
 			return (
-				<div className="donation-list-pane">
+				<div className="container">
 					Home Landing Page
 				</div>
 			)
