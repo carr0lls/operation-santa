@@ -25,8 +25,10 @@ import React from 'react'
 
 		render() {
 			return (
-				<div className="container p-1">
-					Home Landing Page
+				<div className="home container mx-auto p-1 mt-3">
+					<header>
+						<h1 className="header-title animated slideInUp">OPERATION SANTA</h1>
+					</header>
 				</div>
 			)
 		}

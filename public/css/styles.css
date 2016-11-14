@@ -10,7 +10,16 @@ body {
 	font-family: 'Raleway', sans-serif;
 }
 
-.register-btn-group {
-	width: 290px;
+.home {
+	text-align: center;
+}
+.home .header-title {
+	font-size: 5rem;
 }
 
+.register {
+
+}
+.register .register-btn-group {
+	width: 290px;
+}

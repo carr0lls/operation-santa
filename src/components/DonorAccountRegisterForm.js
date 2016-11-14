@@ -11,8 +11,8 @@ export default class DonorAccountRegisterForm extends React.Component {
 		let last_name = this.refs.last_name.value.trim()
 		let username = this.refs.username.value.trim()
 		let password = this.refs.password.value.trim()
-		let type = this.refs.account_type.value.trim()
-		let formData = { first_name, last_name, username, password, type }
+		let account_type = this.refs.account_type.value.trim()
+		let formData = { first_name, last_name, username, password, account_type }
 
 		this.props.onSubmitForm(formData)
 	}

@@ -1,4 +1,5 @@
 import React from 'react'
+import { LoginForm } from '../../components'
 
 	export default class Login extends React.Component {
 		constructor(props) {
@@ -19,14 +20,14 @@ import React from 'react'
 
 		}
 
-		submitForm() {
-			
+		submitForm(data) {
+			console.log(data)
 		}
 
 		render() {
 			return (
 				<div className="container p-1">
-					Login Page
+					<LoginForm onSubmitForm={this.submitForm} />
 				</div>
 			)
 		}
