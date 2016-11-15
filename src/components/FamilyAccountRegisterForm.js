@@ -15,7 +15,7 @@ export default class FamilyAccountRegisterForm extends React.Component {
 		let family_size = this.refs.family_size.value.trim()
 		let family_story = this.refs.family_story.value.trim()
 		let family_photo = this.refs.family_photo.value.trim()
-		let formData = { first_name, last_name, username, password, account_type, family_size, family_story, family_photo, phone_number: 12345125 }
+		let formData = { first_name, last_name, username, password, account_type, family_size, family_story, family_photo }
 
 		this.props.onSubmitForm(formData)
 	}

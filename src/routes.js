@@ -11,15 +11,22 @@ import {
     Register 
   } from './containers'
 
+let user = {}
+let browserStorage = (typeof localStorage === 'undefined') ? null : localStorage;
+if (browserStorage) {
+  user = JSON.parse(localStorage.getItem('profile'))
+}
+
 const containerData = {
   api: {
     url: Constants.API_FETCH_URL,
     pollInterval: Constants.API_REFRESH_INTERVAL
-  }
+  },
+  user
 }
 
 export default (
-  <Route path="/" component={App}>
+  <Route path="/" containerData={containerData} component={App}>
     <IndexRoute containerData={containerData} component={Home}/>
     <Route path="/user" containerData={containerData} component={Profile}>
       <Route path="/user/:userName/:repoName" component={Profile}/>

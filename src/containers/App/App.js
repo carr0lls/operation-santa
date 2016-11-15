@@ -4,12 +4,14 @@ import { NavBar } from '../../components'
 export default class App extends React.Component {
   constructor(props) {
     super(props)
+
+    this.user = props.route.containerData.user
   }
 
   render() {
     return (
       <div>
-        <NavBar />
+        <NavBar user={this.user} />
         {this.props.children}
       </div>
     )
