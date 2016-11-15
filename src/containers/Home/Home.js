@@ -51,9 +51,10 @@ import React from 'react'
 							{user.first_name}'s Family
 							<article>
 								<img src={ profile_pic } alt="profile_pic" height="300" />
-								<p>{user.family_story}</p>
 							</article>
 						</a>
+						<div>Story</div>
+						<p>{user.family_story}</p>						
 					</li>
 				)
 			})
