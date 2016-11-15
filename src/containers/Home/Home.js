@@ -23,6 +23,9 @@ import React from 'react'
 				this.setState({ users: res })
 			})
 		}
+		renderProfilePicture(imgStr) {
+			return 'data:image/png;base64,' + imgStr
+		}
 
 		submitForm() {
 			
@@ -34,10 +37,24 @@ import React from 'react'
 		}
 
 		render() {
-			let user, userList = []
+			let user, profile_pic, userList = []
 			Object.keys(this.state.users).map((key) => {
 				user = this.state.users[key]
-				userList.push(<li className="list-group-item"><a key={key} href="">{user.first_name} {user.last_name}</a></li>)
+				profile_pic = ''
+
+				if (user.family_photo)
+					profile_pic = this.renderProfilePicture(user.family_photo)
+
+				userList.push(
+					<li className="list-group-item">
+						<a key={key} href="">
+							{user.first_name} {user.last_name}
+							<article>
+								<img src={ profile_pic } alt="profile_pic" height="300" />
+							</article>
+						</a>
+					</li>
+				)
 			})
 
 			return (
