@@ -15,6 +15,7 @@ body {
 }
 .home .header-title {
 	font-size: 4rem;
+	text-transform: uppercase;
 }
 
 .register {
