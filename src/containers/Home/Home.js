@@ -48,9 +48,10 @@ import React from 'react'
 				userList.push(
 					<li className="list-group-item">
 						<a key={key} href="">
-							{user.first_name} {user.last_name}
+							{user.first_name}'s Family
 							<article>
 								<img src={ profile_pic } alt="profile_pic" height="300" />
+								<p>{user.family_story}</p>
 							</article>
 						</a>
 					</li>
