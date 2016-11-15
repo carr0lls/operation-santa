@@ -11,6 +11,7 @@ import {
     Register 
   } from './containers'
 
+// temp implementation until serverside can provide user profile without checking localstorage
 let user = {}
 let browserStorage = (typeof localStorage === 'undefined') ? null : localStorage;
 if (browserStorage) {

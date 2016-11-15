@@ -31,10 +31,12 @@ import { FamilyAccountRegisterForm, DonorAccountRegisterForm } from '../../compo
 				url: this.api.url + 'user',
 				type: 'POST',
 				data
-			}).done(function(res) {
+			}).done((res) => {
+				localStorage.setItem('profile', JSON.stringify(res))
 				alert('Successfully registered')
 				console.log(res)
-			});
+				this.props.router.push('/')				
+			})
 		}
 
 		render() {

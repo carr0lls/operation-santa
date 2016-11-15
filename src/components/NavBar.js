@@ -23,14 +23,14 @@ export default class NavBar extends React.Component {
       </ul>
     )
 
-    if (this.props.user.hasOwnProperty('first_name')) { 
+    if (this.props.user && this.props.user.hasOwnProperty('first_name')) { 
       navlinks = (
         <ul className="nav navbar-nav">
           <li className="nav-item">
             <NavLink className="nav-link" to="/about">About</NavLink>
           </li>        
           <li className="nav-item">
-            <NavLink className="nav-link" to="/profile">{this.props.user['first_name']}</NavLink>
+            <NavLink className="nav-link" to="/user">{this.props.user['first_name']}</NavLink>
           </li>
         </ul>
       )
