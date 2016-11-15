@@ -5,6 +5,10 @@ export default class NavBar extends React.Component {
   constructor(props) {
     super(props)
 
+    this.handleLogout = this.handleLogout.bind(this)
+  }
+  handleLogout() {
+    this.props.onLogout()
   }
 
   render() {
@@ -31,6 +35,9 @@ export default class NavBar extends React.Component {
           </li>        
           <li className="nav-item">
             <NavLink className="nav-link" to="/user">{this.props.user['first_name']}</NavLink>
+          </li>
+          <li className="nav-item">
+            <a className="nav-link" href="#" onClick={this.handleLogout}>Logout</a>
           </li>
         </ul>
       )
