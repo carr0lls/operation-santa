@@ -46,8 +46,8 @@ import React from 'react'
 					profile_pic = this.renderProfilePicture(user.family_photo)
 
 				userList.push(
-					<li className="list-group-item">
-						<a key={key} href="">
+					<li key={key} className="list-group-item">
+						<a href="">
 							{user.first_name}'s Family
 							<article>
 								<img src={ profile_pic } alt="profile_pic" height="300" />
