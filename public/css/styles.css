@@ -12,6 +12,7 @@ body {
 a {
 	color: #000;
 }
+a:focus,
 a:hover {
 	color: #d9534f;
 	text-decoration: none;
@@ -29,8 +30,14 @@ a:hover {
 	font-size: 4rem;
 	text-transform: uppercase;
 }
+.home ul .list-group-item:first-child {
+	border-top: none;
+}
 .home ul .list-group-item {
 	padding: .75rem 0.5rem;
+	border-left: none;
+	border-right: none;
+	border-bottom: none;
 }
 
 .register {
