@@ -14,10 +14,9 @@ import React from 'react'
 			this.fetchData = this.fetchData.bind(this)
 			this.submitForm = this.submitForm.bind(this)
 		}
-
 		fetchData() {
 			$.ajax({
-				url: this.api.url + 'user',
+				url: this.api.url + 'user?account_type=family',
 				type: 'GET'
 			}).done((res) => {
 				this.setState({ users: res })
@@ -26,7 +25,6 @@ import React from 'react'
 		renderProfilePicture(imgStr) {
 			return 'data:image/png;base64,' + imgStr
 		}
-
 		submitForm() {
 			
 		}

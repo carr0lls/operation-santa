@@ -17,15 +17,12 @@ import { FamilyAccountRegisterForm, DonorAccountRegisterForm } from '../../compo
 			this.toggleFormTwo = this.toggleFormTwo.bind(this)
 			this.submitForm = this.submitForm.bind(this)
 		}
-
 		toggleFormOne() {
 			this.setState({active: this.state.active = 1})
 		}
-
 		toggleFormTwo() {
 			this.setState({active: this.state.active = 2})
 		}
-
 		submitForm(data) {
 			$.ajax({
 				url: this.api.url + 'user',

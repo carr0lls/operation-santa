@@ -4,45 +4,55 @@ import React from 'react'
 		constructor(props) {
 			super(props)
 
-			// temp implementation until serverside can provide user profile without checking localstorage
-			let user = {};			
-			let browserStorage = (typeof localStorage === 'undefined') ? null : localStorage;
-			if (browserStorage) {
-				user = JSON.parse(localStorage.getItem('profile'))
-			}			
-			this.state = {
-				user 
+			this.state = {}
+
+			this.api = {
+				url: props.route.containerData.api.url,
+				refresh: props.route.containerData.api.pollInterval
 			}
 
-			this.renderData = this.renderData.bind(this)
+			this.fetchUserData = this.fetchUserData.bind(this)
 			this.submitForm = this.submitForm.bind(this)
 		}
-
-		renderData() {
-
+		fetchUserData() {
+			$.ajax({
+				url: this.api.url + 'user/' + this.props.params.username,
+				type: 'GET'
+			}).done((res) => {
+				this.setState({ user: res })
+			})
 		}
-
+		renderProfilePicture(imgStr) {
+			return 'data:image/png;base64,' + imgStr
+		}
 		submitForm() {
 			
 		}
 
-		renderProfilePicture(imgStr) {
-			return 'data:image/png;base64,' + imgStr
+		componentDidMount() {
+			this.fetchUserData()
+			setInterval(this.fetchData, this.api.refresh)
 		}
 
 		render() {
 			let header = `Profile page`
 			let profile_pic = `Profile picture`
+			let family_story = `Family story`
 
-			if (this.state.user) {
-				header = this.state.user.account_type == 'family' ? this.state.user.first_name + '\'s Family' : this.state.user.first_name
-				profile_pic = this.renderProfilePicture(this.state.user.family_photo)
+			let user = this.state.user
+
+			if (user) {
+				header = user.account_type == 'family' ? user.first_name + '\'s Family' : user.first_name
+				profile_pic = this.renderProfilePicture(user.family_photo)
+				family_story = user.family_story
 			}
 
 			return (
         		<div className="container p-1">
         			<h4>{ header }</h4>
         			<article><img src={ profile_pic } alt="profile_pic" height="300" /></article>
+        			<div>Story</div>
+					<p>{family_story}</p>
 				</div>
 			)
 		}

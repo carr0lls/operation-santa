@@ -34,7 +34,7 @@ export default class NavBar extends React.Component {
             <NavLink className="nav-link" to="/about">About</NavLink>
           </li>        
           <li className="nav-item">
-            <NavLink className="nav-link" to="/user">{this.props.user['first_name']}</NavLink>
+            <NavLink className="nav-link" to={'/user/' + this.props.user.id}>{this.props.user['first_name']}</NavLink>
           </li>
           <li className="nav-item">
             <a className="nav-link" href="#" onClick={this.handleLogout}>Logout</a>
