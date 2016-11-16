@@ -1,4 +1,5 @@
 import React from 'react'
+import 'whatwg-fetch'
 import { UserStory } from '../../components'
 
 	export default class Home extends React.Component {
@@ -16,15 +17,17 @@ import { UserStory } from '../../components'
 			this.submitForm = this.submitForm.bind(this)
 		}
 		fetchData() {
-			$.ajax({
-				url: this.api.url + 'user?account_type=family',
-				type: 'GET'
-			}).done((res) => {
-				this.setState({ users: res })
-			})
-		}
-		renderProfilePicture(imgStr) {
-			return 'data:image/png;base64,' + imgStr
+			fetch(this.api.url + 'user?account_type=family')
+				.then((response) => {
+					return response.json()
+				})
+				.then((json) => {
+					this.setState({ users: json })
+				})
+				.catch((ex) => {
+					// user does not exist, move back to home page
+					console.log('failed to retrieve users list', ex)
+				})
 		}
 		submitForm() {
 			
@@ -38,14 +41,10 @@ import { UserStory } from '../../components'
 		render() {
 			let userList = []
 			this.state.users.map((user) => {
-
-				if (user.family_photo)
-					user.family_photo = this.renderProfilePicture(user.family_photo)
-
 				userList.push(
 					<li key={user.id} className="list-group-item">
 						<a href={ '/user/' + user.id }>
-							<UserStory user={user}>{ user.first_name + '\' Family' }</UserStory>
+							<UserStory user={user}>{ user.first_name + '\'s Family' }</UserStory>
 						</a>
 					</li>
 				)

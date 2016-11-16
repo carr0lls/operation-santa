@@ -1,6 +1,6 @@
 import React from 'react'
 import classnames from 'classnames'
-// import 'whatwg-fetch'
+import 'whatwg-fetch'
 import { FamilyAccountRegisterForm, DonorAccountRegisterForm } from '../../components'
 
 	export default class Register extends React.Component {
@@ -33,7 +33,27 @@ import { FamilyAccountRegisterForm, DonorAccountRegisterForm } from '../../compo
 				alert('Successfully registered')
 				console.log(res)
 				this.props.router.push('/')				
+			})			
+/*			fetch(this.api.url + 'user', {
+				method: 'POST',
+				headers: {
+					'Accept': 'application/json',
+					'Content-Type': 'application/json'
+				},
+				body: data
 			})
+				.then((response) => { 
+					return response.json()
+				})
+				.then((json) => {
+					localStorage.setItem('profile', JSON.stringify(json))
+					alert('Successfully registered')
+					console.log(json)
+					this.props.router.push('/')
+				})
+				.catch((ex) => {
+					console.log('Failed to get register account')
+				})*/
 		}
 
 		render() {

@@ -1,4 +1,5 @@
 import React from 'react'
+import 'whatwg-fetch'
 import { UserStory } from '../../components'
 
 	export default class Profile extends React.Component {
@@ -15,32 +16,39 @@ import { UserStory } from '../../components'
 			this.handleDonate = this.handleDonate.bind(this)
 		}
 		fetchUserData() {
-			$.ajax({
-				url: this.api.url + 'user/' + this.props.params.username,
-				type: 'GET'
-			}).done((res) => {
-				res.address = '1234 test address, SF, CA 94132'
-				this.setState({ user: res })
-			}).fail((error) => {
-				// user does not exist, move back to home page
-				this.props.router.push('/')
-			})
-		}
-		renderProfilePicture(imgStr) {
-			return 'data:image/png;base64,' + imgStr
+			fetch(this.api.url + 'user/' + this.props.params.username)
+				.then((response) => {
+					return response.json()
+				})
+				.then((json) => {
+					json.address = '1234 test address, SF, CA 94132'
+					this.setState({ user: json })
+				})
+				.catch((ex) => {
+					// user does not exist, move back to home page
+					this.props.router.push('/')
+				})			
 		}
 		handleDonate() {
 			let data = { pick_up: '1234 fill me in, SF, CA 94108', drop_off: this.state.user.address }
 			console.log('get estimate:', data)
-			/*$.ajax({
-				url: this.api.url + 'postmates/get_estimate',
-				type: 'POST',
-				data
-			}).done((res) => {
-				console.log('Estimate:', res)
-			}).fail((error) => {
-				console.log('Failed to get estimate')
-			})*/
+			fetch(this.api.url + 'postmates/get_estimate', {
+				method: 'POST',
+				headers: {
+					'Accept': 'application/json',
+					'Content-Type': 'application/json'
+				},
+				body: data
+			})
+				.then((response) => { 
+					return response.json()
+				})
+				.then((json) => {
+					console.log('Estimate:', json)
+				})
+				.catch((ex) => {
+					console.log('Failed to get estimate')
+				})
 		}
 
 		componentDidMount() {
@@ -50,10 +58,9 @@ import { UserStory } from '../../components'
 		render() {
 			let user = {}
 
-			if (this.state.user) {
-				user = this.state.user				
-				user.family_photo = this.renderProfilePicture(user.family_photo)
-			}
+			if (this.state.user)
+				user = this.state.user
+
 			let header = user.account_type == 'family' ? user.first_name + '\'s Family' : user.first_name			
 
 			return (
