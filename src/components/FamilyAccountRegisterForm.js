@@ -70,7 +70,7 @@ export default class FamilyAccountRegisterForm extends React.Component {
 					</div>					  
 					<div className="form-group">
 						<label htmlFor="family_story">Family Story</label>
-						<textarea className="form-control" ref="family_story" name="family_story" rows="3" placeholder="Tell us a little about your family." required></textarea>
+						<textarea className="form-control" ref="family_story" name="family_story" maxLength="700" rows="5" placeholder="Tell us a little about your family." required></textarea>
 					</div>
 					<div className="form-group">
 				    <label htmlFor="family_photo">Family Photo</label>

@@ -3,7 +3,7 @@ import React from 'react'
 	export default class About extends React.Component {
 		render() {
 			return (
-				<div className="container p-1">
+				<div className="row p-1">
 					<section className="mb-1">
 						<h3>Nominate</h3>
 						<article>

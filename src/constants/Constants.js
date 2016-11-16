@@ -1,4 +1,4 @@
 export const Constants = {
   API_FETCH_URL: 'http://localhost:3000/api/',
-  API_REFRESH_INTERVAL: 10000
+  API_REFRESH_INTERVAL: 30000
 }

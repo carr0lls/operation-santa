@@ -23,8 +23,10 @@ export default class App extends React.Component {
     render() {
         return (
             <div>
-                <NavBar {...this.state} onLogout={this.logout} />
-                {this.props.children}
+                <NavBar {...this.state} onLogout={this.logout} />            
+                <div className="container">
+                    {this.props.children}
+                </div>
             </div>
         )
     }

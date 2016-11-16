@@ -26,7 +26,7 @@ import { LoginForm } from '../../components'
 
 		render() {
 			return (
-				<div className="container p-1">
+				<div className="row p-1">
 					<LoginForm onSubmitForm={this.submitForm} />
 				</div>
 			)
