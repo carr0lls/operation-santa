@@ -35,23 +35,23 @@ import React from 'react'
 		}
 
 		render() {
-			let user, profile_pic, userList = []
+			let userList = []
 			this.state.users.map((user) => {
-				profile_pic = ''
 
 				if (user.family_photo)
-					profile_pic = this.renderProfilePicture(user.family_photo)
+					user.family_photo = this.renderProfilePicture(user.family_photo)
 
 				userList.push(
 					<li key={user.id} className="list-group-item">
 						<a href={ '/user/' + user.id }>
-							{user.first_name}'s Family
-							<article>
-								<img src={ profile_pic } alt="profile_pic" height="300" />
-							</article>
+							<h3 className="header-title">{ user.first_name }'s Family</h3>
+		        			<article className="mb-1">
+		        				<img className="photo" src={ user.family_photo } alt="family_photo" height="300" />
+		        			</article>
+		        			<section>
+								<p>{ user.family_story }</p>
+							</section>
 						</a>
-						<div>Story</div>
-						<p>{user.family_story}</p>						
 					</li>
 				)
 			})

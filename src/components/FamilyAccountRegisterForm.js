@@ -8,18 +8,20 @@ export default class FamilyAccountRegisterForm extends React.Component {
 	}
 	handleSubmit(e) {
 		e.preventDefault()
-
+		
 		let first_name = this.refs.first_name.value.trim()
 		let last_name = this.refs.last_name.value.trim()
 		let username = this.refs.username.value.trim()
 		let password = this.refs.password.value.trim()
+		let address = this.refs.address.value.trim()
 		let account_type = this.refs.account_type.value.trim()
+
 		let family_size = this.refs.family_size.value.trim()
 		let family_story = this.refs.family_story.value.trim()
 		let family_photo_file = this.refs.family_photo.value.trim()
 		let family_photo = this.state.family_photo
 
-		let formData = { first_name, last_name, username, password, account_type, family_size, family_story, family_photo }
+		let formData = { first_name, last_name, username, password, address, account_type, family_size, family_story, family_photo }
 		this.props.onSubmitForm(formData)
 	}
 	changeImage(e) {
@@ -44,8 +46,12 @@ export default class FamilyAccountRegisterForm extends React.Component {
 				    	<input type="text" className="form-control" ref="last_name" name="last_name" placeholder="Enter last name" required />
 					</div>
 					<div className="form-group">
-				    	<label htmlFor="username">Email address</label>
+				    	<label htmlFor="username">Email Address</label>
 				    	<input type="email" className="form-control" ref="username" name="username" aria-describedby="emailHelp" placeholder="Enter email" required />
+					</div>
+					<div className="form-group">
+				    	<label htmlFor="address">Shipping Address</label>
+				    	<input type="text" className="form-control" ref="address" name="address" placeholder="Enter shipping address" required />
 					</div>
 					<div className="form-group">
 				    	<label htmlFor="password">Password</label>

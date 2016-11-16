@@ -9,11 +9,18 @@ html,
 body {
 	font-family: 'Raleway', sans-serif;
 }
+a {
+	color: #000;
+}
+a:hover {
+	color: #d9534f;
+	text-decoration: none;
+}
 
 .home {
 	text-align: center;
 }
-.home .header-title {
+.home header > .header-title {
 	font-size: 4rem;
 	text-transform: uppercase;
 }
@@ -23,4 +30,11 @@ body {
 }
 .register .register-btn-group {
 	width: 290px;
+}
+
+.profile {
+
+}
+.profile .photo {
+	border-radius: 10px;
 }

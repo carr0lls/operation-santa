@@ -11,13 +11,14 @@ import React from 'react'
 			}
 
 			this.fetchUserData = this.fetchUserData.bind(this)
-			this.submitForm = this.submitForm.bind(this)
+			this.handleDonate = this.handleDonate.bind(this)
 		}
 		fetchUserData() {
 			$.ajax({
 				url: this.api.url + 'user/' + this.props.params.username,
 				type: 'GET'
 			}).done((res) => {
+				res.address = '1234 test address, SF, CA 94132'
 				this.setState({ user: res })
 			}).fail((error) => {
 				// user does not exist, move back to home page
@@ -27,8 +28,17 @@ import React from 'react'
 		renderProfilePicture(imgStr) {
 			return 'data:image/png;base64,' + imgStr
 		}
-		submitForm() {
-			
+		handleDonate() {
+			// $.ajax({
+			// 	url: this.api.url + 'user/' + this.props.params.username,
+			// 	type: 'GET'
+			// }).done((res) => {
+			// 	this.setState({ user: res })
+			// }).fail((error) => {
+			// 	// user does not exist, move back to home page
+			// 	this.props.router.push('/')
+			// })
+			console.log(this.state.user.address)
 		}
 
 		componentDidMount() {
@@ -36,24 +46,24 @@ import React from 'react'
 		}
 
 		render() {
-			let header = `Profile page`
-			let profile_pic = `Profile picture`
-			let family_story = `Family story`
+			let user = {}
 
-			let user = this.state.user
-
-			if (user) {
-				header = user.account_type == 'family' ? user.first_name + '\'s Family' : user.first_name
-				profile_pic = this.renderProfilePicture(user.family_photo)
-				family_story = user.family_story
+			if (this.state.user) {
+				user = this.state.user				
+				user.family_photo = this.renderProfilePicture(user.family_photo)
 			}
+			let header = user.account_type == 'family' ? user.first_name + '\'s Family' : user.first_name			
 
 			return (
-        		<div className="container p-1">
-        			<h4>{ header }</h4>
-        			<article><img src={ profile_pic } alt="profile_pic" height="300" /></article>
-        			<div>Story</div>
-					<p>{family_story}</p>
+        		<div className="profile container p-1">
+        			<h3 className="header-title">{ header }</h3>
+        			<article className="mb-1">
+        				<img className="photo" src={ user.family_photo } alt="family_photo" height="300" />
+        			</article>
+        			<section>
+						<p>{ user.family_story }</p>
+					</section>
+					<button type="button" className="btn btn-success btn-lg" onClick={this.handleDonate}>Donate</button>					
 				</div>
 			)
 		}
