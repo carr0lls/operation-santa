@@ -32,7 +32,14 @@ import { UserStory } from '../../components'
 		handleDonate() {
 			let data = { pick_up: '1234 fill me in, SF, CA 94108', drop_off: this.state.user.address }
 			console.log('get estimate:', data)
-			fetch(this.api.url + 'postmates/get_estimate', {
+			$.ajax({
+				url: this.api.url + 'postmates/get_estimate',
+				type: 'POST',
+				data
+			}).done((res) => {
+				console.log('Estimate:', res)		
+			})
+/*			fetch(this.api.url + 'postmates/get_estimate', {
 				method: 'POST',
 				headers: {
 					'Accept': 'application/json',
@@ -48,7 +55,7 @@ import { UserStory } from '../../components'
 				})
 				.catch((ex) => {
 					console.log('Failed to get estimate')
-				})
+				})*/
 		}
 
 		componentDidMount() {
