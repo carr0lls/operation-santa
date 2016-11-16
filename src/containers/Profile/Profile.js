@@ -7,8 +7,7 @@ import React from 'react'
 			this.state = {}
 
 			this.api = {
-				url: props.route.containerData.api.url,
-				refresh: props.route.containerData.api.pollInterval
+				url: props.route.containerData.api.url
 			}
 
 			this.fetchUserData = this.fetchUserData.bind(this)
@@ -20,6 +19,9 @@ import React from 'react'
 				type: 'GET'
 			}).done((res) => {
 				this.setState({ user: res })
+			}).fail((error) => {
+				// user does not exist, move back to home page
+				this.props.router.push('/')
 			})
 		}
 		renderProfilePicture(imgStr) {
@@ -31,7 +33,6 @@ import React from 'react'
 
 		componentDidMount() {
 			this.fetchUserData()
-			setInterval(this.fetchData, this.api.refresh)
 		}
 
 		render() {
