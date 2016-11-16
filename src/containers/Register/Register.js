@@ -38,7 +38,7 @@ import { FamilyAccountRegisterForm, DonorAccountRegisterForm } from '../../compo
 				method: 'POST',
 				headers: {
 					'Accept': 'application/json',
-					'Content-Type': 'application/json'
+					'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
 				},
 				body: data
 			})
