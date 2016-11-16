@@ -30,16 +30,17 @@ import { UserStory } from '../../components'
 			return 'data:image/png;base64,' + imgStr
 		}
 		handleDonate() {
-			// $.ajax({
-			// 	url: this.api.url + 'user/' + this.props.params.username,
-			// 	type: 'GET'
-			// }).done((res) => {
-			// 	this.setState({ user: res })
-			// }).fail((error) => {
-			// 	// user does not exist, move back to home page
-			// 	this.props.router.push('/')
-			// })
-			console.log(this.state.user.address)
+			let data = { pick_up: '1234 fill me in, SF, CA 94108', drop_off: this.state.user.address }
+			console.log('get estimate:', data)
+			/*$.ajax({
+				url: this.api.url + 'postmates/get_estimate',
+				type: 'POST',
+				data
+			}).done((res) => {
+				console.log('Estimate:', res)
+			}).fail((error) => {
+				console.log('Failed to get estimate')
+			})*/
 		}
 
 		componentDidMount() {
