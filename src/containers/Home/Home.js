@@ -51,7 +51,7 @@ import { UserStory } from '../../components'
 			})
 
 			return (
-				<div className="home row mx-auto p-1 mt-3">
+				<div className="home row mx-auto mt-3">
 					<header>
 						<h1 className="header-title animated slideInUp">Operation Santa</h1>
 						<ul className="list-group">

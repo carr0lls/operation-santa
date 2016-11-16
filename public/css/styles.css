@@ -1,5 +1,5 @@
 /*
- * General settings 
+ * Globals
  */
 * {
 	-webkit-font-smoothing: antialiased;
@@ -17,12 +17,20 @@ a:hover {
 	text-decoration: none;
 }
 
+
+/*
+ * Containers
+ */
 .home {
 	text-align: center;
 }
 .home header > .header-title {
+	color: #d9534f;
 	font-size: 4rem;
 	text-transform: uppercase;
+}
+.home ul .list-group-item {
+	padding: .75rem 0.5rem;
 }
 
 .register {
@@ -35,9 +43,16 @@ a:hover {
 .profile {
 
 }
-.profile .photo {
-	border-radius: 10px;
-}
 .profile .donation-form {
-	
+
+}
+
+
+/*
+ * Components
+ */
+.user-story .photo {
+	border-radius: 10px;
+	width: 100%;
+	max-width: 400px;
 }
