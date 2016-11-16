@@ -1,4 +1,5 @@
 import React from 'react'
+import { UserStory } from '../../components'
 
 	export default class Home extends React.Component {
 		constructor(props) {
@@ -44,13 +45,7 @@ import React from 'react'
 				userList.push(
 					<li key={user.id} className="list-group-item">
 						<a href={ '/user/' + user.id }>
-							<h3 className="header-title">{ user.first_name }'s Family</h3>
-		        			<article className="mb-1">
-		        				<img className="photo" src={ user.family_photo } alt="family_photo" height="300" />
-		        			</article>
-		        			<section>
-								<p>{ user.family_story }</p>
-							</section>
+							<UserStory user={user}>{ user.first_name + '\' Family' }</UserStory>
 						</a>
 					</li>
 				)

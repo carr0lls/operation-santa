@@ -1,4 +1,5 @@
 import React from 'react'
+import { UserStory } from '../../components'
 
 	export default class Profile extends React.Component {
 		constructor(props) {
@@ -56,13 +57,7 @@ import React from 'react'
 
 			return (
         		<div className="profile container p-1">
-        			<h3 className="header-title">{ header }</h3>
-        			<article className="mb-1">
-        				<img className="photo" src={ user.family_photo } alt="family_photo" height="300" />
-        			</article>
-        			<section>
-						<p>{ user.family_story }</p>
-					</section>
+					<UserStory user={user}>{ header }</UserStory>
 					<button type="button" className="btn btn-success btn-lg" onClick={this.handleDonate}>Donate</button>					
 				</div>
 			)
