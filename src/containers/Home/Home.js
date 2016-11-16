@@ -4,7 +4,7 @@ import React from 'react'
 		constructor(props) {
 			super(props)
 			this.state = {
-				users: {}
+				users: []
 			}
 			this.api = {
 				url: props.route.containerData.api.url,
@@ -36,16 +36,15 @@ import React from 'react'
 
 		render() {
 			let user, profile_pic, userList = []
-			Object.keys(this.state.users).map((key) => {
-				user = this.state.users[key]
+			this.state.users.map((user) => {
 				profile_pic = ''
 
 				if (user.family_photo)
 					profile_pic = this.renderProfilePicture(user.family_photo)
 
 				userList.push(
-					<li key={key} className="list-group-item">
-						<a href="">
+					<li key={user.id} className="list-group-item">
+						<a href={ '/user/' + user.id }>
 							{user.first_name}'s Family
 							<article>
 								<img src={ profile_pic } alt="profile_pic" height="300" />
