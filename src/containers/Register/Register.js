@@ -4,15 +4,17 @@ import 'whatwg-fetch'
 import { FamilyAccountRegisterForm, DonorAccountRegisterForm } from '../../components'
 
 	export default class Register extends React.Component {
-		constructor(props) {
+		static get contextTypes() {
+		    return {
+		        data: React.PropTypes.object
+		    }
+		}
+		constructor(props, context) {
 			super(props)
-			this.state = {
-				data: []
-			}
 			this.api = {
-				url: props.route.containerData.api.url,
-				refresh: props.route.containerData.api.pollInterval
+				url: context.data.api.url
 			}
+
 			this.toggleFormOne = this.toggleFormOne.bind(this)
 			this.toggleFormTwo = this.toggleFormTwo.bind(this)
 			this.submitForm = this.submitForm.bind(this)

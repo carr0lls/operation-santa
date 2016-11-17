@@ -4,13 +4,7 @@ import { LoginForm } from '../../components'
 	export default class Login extends React.Component {
 		constructor(props) {
 			super(props)
-			this.state = {
-				data: []
-			}
-			this.api = {
-				url: props.route.containerData.api.url,
-				refresh: props.route.containerData.api.pollInterval
-			}
+			this.state = {}
 
 			this.renderData = this.renderData.bind(this)
 			this.submitForm = this.submitForm.bind(this)

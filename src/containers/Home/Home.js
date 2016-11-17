@@ -3,14 +3,19 @@ import 'whatwg-fetch'
 import { UserStory } from '../../components'
 
 	export default class Home extends React.Component {
-		constructor(props) {
-			super(props)
+		static get contextTypes() {
+		    return {
+		        data: React.PropTypes.object
+		    }
+		}
+		constructor(props, context) {
+			super(props, context)
 			this.state = {
-				users: []
+				users: context.data.users || {}
 			}
 			this.api = {
-				url: props.route.containerData.api.url,
-				refresh: props.route.containerData.api.pollInterval
+				url: context.data.api.url,
+				refresh: context.data.api.pollInterval
 			}
 
 			this.fetchData = this.fetchData.bind(this)
@@ -39,8 +44,9 @@ import { UserStory } from '../../components'
 		}
 
 		render() {
-			let userList = []
-			this.state.users.map((user) => {
+			let user, userList = []
+			Object.keys(this.state.users).map((key) => {
+				user = this.state.users[key]
 				userList.push(
 					<li key={user.id} className="list-group-item">
 						<a href={ '/user/' + user.id }>

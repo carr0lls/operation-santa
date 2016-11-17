@@ -19,19 +19,15 @@ if (browserStorage) {
 }
 
 const containerData = {
-    api: {
-        url: Constants.API_FETCH_URL,
-        pollInterval: Constants.API_REFRESH_INTERVAL
-    },
     user
 }
 
 export default (
     <Route path="/" containerData={containerData} component={App}>
-        <IndexRoute containerData={containerData} component={Home}/>
-        <Route path="/user/:username" containerData={containerData} component={Profile}/>
-        <Route path="/about" containerData={containerData} component={About}/>
-        <Route path="/login" containerData={containerData} component={Login}/>
-        <Route path="/register" containerData={containerData} component={Register}/>
+        <IndexRoute component={Home}/>
+        <Route path="/user/:username" component={Profile}/>
+        <Route path="/about" component={About}/>
+        <Route path="/login" component={Login}/>
+        <Route path="/register" component={Register}/>
     </Route>
 )

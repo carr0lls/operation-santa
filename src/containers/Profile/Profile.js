@@ -3,13 +3,18 @@ import 'whatwg-fetch'
 import { UserStory } from '../../components'
 
 	export default class Profile extends React.Component {
-		constructor(props) {
-			super(props)
-
-			this.state = {}
-
+		static get contextTypes() {
+		    return {
+		        data: React.PropTypes.object
+		    }
+		}
+		constructor(props, context) {
+			super(props, context)
+			this.state = {
+				user: context.data.users[this.props.params.username] || {}
+			}
 			this.api = {
-				url: props.route.containerData.api.url
+				url: context.data.api.url
 			}
 
 			this.fetchUserData = this.fetchUserData.bind(this)
