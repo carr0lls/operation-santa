@@ -7,10 +7,16 @@ export default class App extends React.Component {
         this.state = { user: this.props.route.containerData.user }
 
         this.updateAuth = this.updateAuth.bind(this)
+        this.login = this.login.bind(this)
         this.logout = this.logout.bind(this)
     }
     updateAuth(user) {
         this.setState({ user })
+    }
+    login(user) {
+        localStorage.setItem('profile', JSON.stringify(user))
+        this.setState({ user })        
+        this.props.router.push('/')
     }
     logout() {
         if (localStorage) 

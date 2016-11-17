@@ -6,16 +6,15 @@ import { LoginForm } from '../../components'
 			super(props)
 			this.state = {}
 
-			this.renderData = this.renderData.bind(this)
+			this.handleLogin = this.handleLogin.bind(this)
 			this.submitForm = this.submitForm.bind(this)
 		}
-
-		renderData() {
-
+		handleLogin(user) {
+			this.props.onLogin(user)
 		}
-
 		submitForm(data) {
 			console.log(data)
+			// this.handleLogin(res)
 		}
 
 		render() {

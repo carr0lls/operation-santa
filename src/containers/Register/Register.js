@@ -19,6 +19,7 @@ import { FamilyAccountRegisterForm, DonorAccountRegisterForm } from '../../compo
 			this.toggleFormOne = this.toggleFormOne.bind(this)
 			this.toggleFormTwo = this.toggleFormTwo.bind(this)
 			this.submitForm = this.submitForm.bind(this)
+			this.handleLogin = this.handleLogin.bind(this)
 		}
 		toggleFormOne() {
 			this.setState({active: this.state.active = 1})
@@ -26,16 +27,20 @@ import { FamilyAccountRegisterForm, DonorAccountRegisterForm } from '../../compo
 		toggleFormTwo() {
 			this.setState({active: this.state.active = 2})
 		}
+		handleLogin(user) {
+			this.props.onLogin(user)
+		}
 		submitForm(data) {
 			$.ajax({
 				url: this.api.url + 'user',
 				type: 'POST',
 				data
 			}).done((res) => {
-				localStorage.setItem('profile', JSON.stringify(res))
 				alert('Successfully registered')
 				console.log(res)
-				this.props.router.push('/')				
+				localStorage.setItem('profile', JSON.stringify(res))				
+				this.props.router.push('/')	
+				// this.handleLogin(res)
 			})			
 /*			fetch(this.api.url + 'user', {
 				method: 'POST',
