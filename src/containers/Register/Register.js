@@ -11,6 +11,7 @@ import { FamilyAccountRegisterForm, DonorAccountRegisterForm } from '../../compo
 		}
 		constructor(props, context) {
 			super(props)
+			this.state = {}
 			this.api = {
 				url: context.data.api.url
 			}
