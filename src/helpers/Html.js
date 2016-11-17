@@ -24,9 +24,10 @@ import ContextWrapper from './ContextWrapper'
                                 <RouterContext {...this.props.renderProps}/>
                             </ContextWrapper>
                         </div>
-                        <script src="/scripts/jquery.min.js"></script>
-                        <script src="/scripts/bootstrap.min.js"></script>
                         <script dangerouslySetInnerHTML={{__html: stringData}}></script>
+                        <script src="/scripts/jquery.min.js"></script>
+                        <script src="/scripts/tether.min.js"></script>
+                        <script src="/scripts/bootstrap.min.js"></script>
                         <script src="/scripts/app.js"></script>
                     </body>
                 </html>
