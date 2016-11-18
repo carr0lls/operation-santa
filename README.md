@@ -22,7 +22,7 @@ npm start
 
 And visit <http://localhost:4000/> to access GUI.
 
-# Preview
+## Preview
 
 ![Example1](./extra/signup.png)
 
