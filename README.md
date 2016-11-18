@@ -21,3 +21,13 @@ npm start
 ```
 
 And visit <http://localhost:4000/> to access GUI.
+
+# Preview
+
+![Example1](./extra/signup.png)
+
+![Example2](./extra/donate.png)
+
+![Example3](./extra/about.png)
+
+![Example4](./extra/landing.png)
