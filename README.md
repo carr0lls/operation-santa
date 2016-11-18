@@ -1,5 +1,5 @@
 # Operation Santa
-Give a warm surprise to families who are in need.
+Give a warm Christmas gift to families who are in need.
 
 ## Description
 This web app supports universal rendering via ReactJS, routing with React-Router, and Postmates' API to get delivery quotes and create deliveries for users. There is no flux implementation as this was meant to be a small project (MVP).
