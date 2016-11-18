@@ -5,7 +5,7 @@ Give a warm Christmas gift to families who are in need.
 This web app supports universal rendering via ReactJS, routing with React-Router, and Postmates' API to get delivery quotes and create deliveries for users. There is no flux implementation as this was meant to be a small project (MVP).
 
 ## Prerequisites
-- [Operation Santa API](https://github.com/phchung/Operation_Santa)
+- [Operation Santa API](https://github.com/phchung/Operation_Santa_API)
 - Alternative to API pre-req: Checkout 'live' branch instead
 
 ## To run
@@ -21,3 +21,13 @@ npm start
 ```
 
 And visit <http://localhost:4000/> to access GUI.
+
+## Preview
+
+![Example1](./extra/signup.png)
+
+![Example2](./extra/donate.png)
+
+![Example3](./extra/about.png)
+
+![Example4](./extra/landing.png)
