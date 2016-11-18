@@ -6,7 +6,7 @@ This web app is supports universal rendering via ReactJS, routing with React-Rou
 
 ## Prerequisites
 - [Operation Santa API](https://github.com/phchung/Operation_Santa)
-- Alternative to API pre-req: Change API_FETCH_URL const inside src/constants/Constants.js to: 'https://operation-santa.herokuapp.com/api/'
+- Alternative to API pre-req: Checkout 'live' branch instead
 
 ## To run
 
