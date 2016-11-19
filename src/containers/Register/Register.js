@@ -36,11 +36,7 @@ import { FamilyAccountRegisterForm, DonorAccountRegisterForm } from '../../compo
 				type: 'POST',
 				data
 			}).done((res) => {
-				alert('Successfully registered')
-				console.log(res)
-				localStorage.setItem('profile', JSON.stringify(res))				
-				this.props.router.push('/')	
-				// this.handleLogin(res)
+				this.handleLogin(res)
 			})			
 /*			fetch(this.api.url + 'user', {
 				method: 'POST',
