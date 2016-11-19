@@ -12,7 +12,7 @@ This web app supports universal rendering via ReactJS, routing with React-Router
 - [React](https://github.com/facebook/react)
 - [React Router](https://github.com/ReactTraining/react-router)
 - [Webpack](https://github.com/webpack/webpack)
-- [Twitter Boostrap](https://github.com/twbs/bootstrap)
+- [Twitter Bootstrap](https://github.com/twbs/bootstrap)
 
 ## To run
 
