@@ -174,9 +174,9 @@ import { UserStory } from '../../components'
 					modal_body = (
 						<div className="modal-body-footer">
 							<div className="modal-body">
-								<p>Drop&#45;off time: { this.delivery.estimate.dropoff_eta }</p>
-								<p>Estimated time: { this.delivery.estimate.duration } minutes</p>
-								<p>Shipping fee: ${ this.delivery.estimate.fee }</p>
+								<p><strong>Estimated drop&#45;off time:</strong> { this.delivery.estimate.dropoff_eta }</p>
+								<p><strong>Duration:</strong> { this.delivery.estimate.duration } minutes</p>
+								<p><strong>Delivery fee:</strong> ${ this.delivery.estimate.fee }</p>
 							</div>
 							<div className="modal-footer">
 								<button type="submit" className="btn btn-block btn-lg btn-success"><div>Request delivery</div></button>
