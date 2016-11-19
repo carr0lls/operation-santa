@@ -46,7 +46,7 @@ export default class App extends React.Component {
             <div>
                 { navbar }
                 <div className="container">
-                    { React.cloneElement(this.props.children, { onLogin: this.userAuth }) }
+                    { React.cloneElement(this.props.children, { onAuth: this.userAuth, onLogin: this.login }) }
                 </div>
             </div>
         )
