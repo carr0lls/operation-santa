@@ -13,6 +13,7 @@ export default class FamilyAccountRegisterForm extends React.Component {
 		let last_name = this.refs.last_name.value.trim()
 		let username = this.refs.username.value.trim()
 		let password = this.refs.password.value.trim()
+		let phone_number = this.refs.phone_number.value.trim()
 		let address = this.refs.address.value.trim()
 		let account_type = this.refs.account_type.value.trim()
 
@@ -21,7 +22,7 @@ export default class FamilyAccountRegisterForm extends React.Component {
 		let family_photo_file = this.refs.family_photo.value.trim()
 		let family_photo = this.state.family_photo
 
-		let formData = { first_name, last_name, username, password, address, account_type, family_size, family_story, family_photo }
+		let formData = { first_name, last_name, username, password, phone_number, address, account_type, family_size, family_story, family_photo }
 		this.props.onSubmitForm(formData)
 	}
 	changeImage(e) {
@@ -48,6 +49,10 @@ export default class FamilyAccountRegisterForm extends React.Component {
 					<div className="form-group">
 				    	<label htmlFor="username">Email Address</label>
 				    	<input type="email" className="form-control" ref="username" name="username" aria-describedby="emailHelp" placeholder="Enter email" required />
+					</div>
+					<div className="form-group">
+						<label htmlFor="phone-number" className="form-control-label">Phone Number</label>
+						<input type="tel" className="form-control" ref="phone_number" name="phone_number" placeholder="(888)888-8888" required />
 					</div>
 					<div className="form-group">
 				    	<label htmlFor="address">Shipping Address</label>
