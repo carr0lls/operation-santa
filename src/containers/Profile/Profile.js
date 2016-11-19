@@ -37,13 +37,15 @@ import { UserStory } from '../../components'
 			e.preventDefault()
 
 			if (this.state.modal.step === 1) {
+				$('.modal-footer button div').addClass('progress')
+
 				let pickup_address = this.refs.pick_up_address.value.trim()
 				let pickup_name = this.refs.pick_up_name.value.trim()
 				let pickup_phone_number = this.refs.pick_up_phone.value.trim()
 				let manifest = this.refs.pick_up_notes.value.trim()	
 				let dropoff_address = this.state.user.address
 				let dropoff_name = this.state.user.first_name
-				let dropoff_phone_number = this.state.user.phone_number || '123-456-7890'
+				let dropoff_phone_number = this.state.user.phone_number
 
 				this.delivery.info = { 
 					pickup_address, 
@@ -64,14 +66,19 @@ import { UserStory } from '../../components'
 					url: this.api.url + 'postmates/get_estimate',
 					type: 'POST',
 					data
-				}).done((res) => {
+				})
+				.done((res) => {
 					// Move modal to page 2
+					$('.modal-footer button div').removeClass('progress')
 					let fee = res.fee.toString()
 					res.fee = fee.substring(0, fee.length-2) + "." + fee.substring(fee.length-2, fee.length)
 					let dropoff_eta = new Date(res.dropoff_eta)
 					res.dropoff_eta = dropoff_eta.toLocaleString()
 					this.delivery.estimate = res
 					this.setState({ modal: { step: 2 } })
+				})
+				.fail((err) => {
+					$('.modal-footer button div').removeClass('progress')
 				})
 /*				fetch(this.api.url + 'postmates/get_estimate', {
 					method: 'POST',
@@ -94,6 +101,8 @@ import { UserStory } from '../../components'
 					})*/
 			}
 			else if (this.state.modal.step === 2) {
+				$('.modal-footer button div').addClass('progress')
+
 				let data = this.delivery.info
 				data.quote_id = this.delivery.estimate.id
 
@@ -101,10 +110,15 @@ import { UserStory } from '../../components'
 					url: this.api.url + 'postmates/create_delivery',
 					type: 'POST',
 					data
-				}).done((res) => {
+				})
+				.done((res) => {
+					$('.modal-footer button div').removeClass('progress')
 					// Move modal to page 2
 					this.delivery.status = res.status
 					this.setState({ modal: { step: 3 } })
+				})
+				.fail((err) => {
+					$('.modal-footer button div').removeClass('progress')
 				})
 			}
 			else {
@@ -133,24 +147,24 @@ import { UserStory } from '../../components'
 						<div className="modal-body-footer">
 							<div className="modal-body">
 								<div className="form-group">
-									<label htmlFor="recipient-name" className="form-control-label">Name</label>
+									<label htmlFor="pick-up-name" className="form-control-label">Name</label>
 									<input type="text" className="form-control" ref="pick_up_name" name="pick_up_name" placeholder="Enter your name" required />
 								</div>
 								<div className="form-group">
-									<label htmlFor="recipient-name" className="form-control-label">Pick&#45;up address</label>
+									<label htmlFor="pick-up-address" className="form-control-label">Pick&#45;up address</label>
 									<input type="text" className="form-control" ref="pick_up_address" name="pick_up_address" placeholder="Enter address to pick up your donations" required />
 								</div>
 								<div className="form-group">
-									<label htmlFor="recipient-name" className="form-control-label">Phone</label>
-									<input type="tel" className="form-control" ref="pick_up_phone" name="pick_up_phone" placeholder="(415)888-8888"/>
+									<label htmlFor="pick-up-phone" className="form-control-label">Phone</label>
+									<input type="tel" className="form-control" ref="pick_up_phone" name="pick_up_phone" placeholder="(888)888-8888"/>
 								</div>
 								<div className="form-group">
-									<label htmlFor="message-text" className="form-control-label">Notes</label>
+									<label htmlFor="pick-up-notes" className="form-control-label">Notes</label>
 									<textarea className="form-control" ref="pick_up_notes" name="pick_up_notes" maxLength="200" rows="3" placeholder="Enter any instructions for delivery person" required ></textarea>
 								</div>
 							</div>
 							<div className="modal-footer">
-								<button type="submit" className="btn btn-block btn-danger">Get Pick&#45;up Delivery Quote via Postmates</button>
+								<button type="submit" className="btn btn-block btn-danger"><div>Get delivery quote via Postmates</div></button>
 							</div>						
 						</div>
 					)
@@ -165,7 +179,7 @@ import { UserStory } from '../../components'
 								<p>Shipping fee: ${ this.delivery.estimate.fee }</p>
 							</div>
 							<div className="modal-footer">
-								<button type="submit" className="btn btn-block btn-success">Request Pick&#45;up Delivery</button>
+								<button type="submit" className="btn btn-block btn-lg btn-success"><div>Request delivery</div></button>
 							</div>
 						</div>
 					)

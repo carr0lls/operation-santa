@@ -31,6 +31,7 @@ import { FamilyAccountRegisterForm, DonorAccountRegisterForm } from '../../compo
 			this.props.onLogin(user)
 		}
 		submitForm(data) {
+			console.log(data)
 			$.ajax({
 				url: this.api.url + 'user',
 				type: 'POST',

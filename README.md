@@ -29,8 +29,6 @@ npm start
 And visit <http://localhost:4000/> to access GUI.
 
 ## Todo
-- Finish create delivery feature via Postmates
-- Add login function
 - Build edit profile page
 - Integrate a flux architecture (Redux?)
 
