@@ -13,7 +13,6 @@ export default class App extends React.Component {
         this.logout = this.logout.bind(this)
     }
     userAuth(user) {
-        console.log('userAuth', user)
         $.ajax({
             url: this.api.url + 'session',
             type: 'POST',
@@ -23,11 +22,10 @@ export default class App extends React.Component {
             this.login(res)
         })
         .fail((err) => {
-            alert(err.responseText)
+            alert(JSON.parse(err.responseText).error)
         })
     }
     login(user) {
-        console.log('logged in!')
         localStorage.setItem('profile', JSON.stringify(user))
         this.setState({ user })        
         this.props.router.push('/')
