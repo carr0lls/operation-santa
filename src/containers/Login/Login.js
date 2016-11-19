@@ -13,8 +13,7 @@ import { LoginForm } from '../../components'
 			this.props.onLogin(user)
 		}
 		submitForm(data) {
-			console.log(data)
-			// this.handleLogin(res)
+			this.handleLogin(data)
 		}
 
 		render() {
