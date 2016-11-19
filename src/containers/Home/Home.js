@@ -22,7 +22,6 @@ import { UserStory } from '../../components'
 			this.submitForm = this.submitForm.bind(this)
 		}
 		fetchData() {
-			console.log('fetch')
 			fetch(this.api.url + 'user?account_type=family')
 				.then((response) => {
 					return response.json()
