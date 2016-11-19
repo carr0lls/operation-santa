@@ -66,6 +66,10 @@ import { UserStory } from '../../components'
 					data
 				}).done((res) => {
 					// Move modal to page 2
+					let fee = res.fee.toString()
+					res.fee = fee.substring(0, fee.length-2) + "." + fee.substring(fee.length-2, fee.length)
+					let dropoff_eta = new Date(res.dropoff_eta)
+					res.dropoff_eta = dropoff_eta.toLocaleString()
 					this.delivery.estimate = res
 					this.setState({ modal: { step: 2 } })
 				})
@@ -89,19 +93,23 @@ import { UserStory } from '../../components'
 						console.log('Failed to get estimate')
 					})*/
 			}
-			else {
-				console.log(this.delivery.info)
+			else if (this.state.modal.step === 2) {
 				let data = this.delivery.info
 				data.quote_id = this.delivery.estimate.id
-				console.log(data)
+
 				$.ajax({
 					url: this.api.url + 'postmates/create_delivery',
 					type: 'POST',
 					data
 				}).done((res) => {
-					alert('Delivery confirmed!')
-					console.log('Delivery:', res)
+					// Move modal to page 2
+					this.delivery.status = res.status
+					this.setState({ modal: { step: 3 } })
 				})
+			}
+			else {
+				$('#donationModal').modal('hide')
+				this.setState({ modal: { step: 1 } })
 			}
 		}
 
@@ -115,48 +123,72 @@ import { UserStory } from '../../components'
 		}
 
 		render() {
-			let user = {}
-
-			if (this.state.user)
-				user = this.state.user
-
+			let modal_body
+			let user = this.state.user
 			let header = (user.account_type == 'family') ? user.first_name + '\'s family' : user.first_name			
 
-			let modal_body = (this.state.modal.step === 1) ? 
-					<div className="modal-body-footer">
-						<div className="modal-body">
-							<div className="form-group">
-								<label htmlFor="recipient-name" className="form-control-label">Name</label>
-								<input type="text" className="form-control" ref="pick_up_name" name="pick_up_name" placeholder="Enter your name" required />
+			switch (this.state.modal.step) {
+				case 1:
+					modal_body = (
+						<div className="modal-body-footer">
+							<div className="modal-body">
+								<div className="form-group">
+									<label htmlFor="recipient-name" className="form-control-label">Name</label>
+									<input type="text" className="form-control" ref="pick_up_name" name="pick_up_name" placeholder="Enter your name" required />
+								</div>
+								<div className="form-group">
+									<label htmlFor="recipient-name" className="form-control-label">Pick&#45;up address</label>
+									<input type="text" className="form-control" ref="pick_up_address" name="pick_up_address" placeholder="Enter address to pick up your donations" required />
+								</div>
+								<div className="form-group">
+									<label htmlFor="recipient-name" className="form-control-label">Phone</label>
+									<input type="tel" className="form-control" ref="pick_up_phone" name="pick_up_phone" placeholder="(415)888-8888"/>
+								</div>
+								<div className="form-group">
+									<label htmlFor="message-text" className="form-control-label">Notes</label>
+									<textarea className="form-control" ref="pick_up_notes" name="pick_up_notes" maxLength="200" rows="3" placeholder="Enter any instructions for delivery person" required ></textarea>
+								</div>
 							</div>
-							<div className="form-group">
-								<label htmlFor="recipient-name" className="form-control-label">Pick&#45;up address</label>
-								<input type="text" className="form-control" ref="pick_up_address" name="pick_up_address" placeholder="Enter address to pick up your donations" required />
+							<div className="modal-footer">
+								<button type="submit" className="btn btn-block btn-danger">Get Pick&#45;up Delivery Quote via Postmates</button>
+							</div>						
+						</div>
+					)
+					break;
+
+				case 2:
+					modal_body = (
+						<div className="modal-body-footer">
+							<div className="modal-body">
+								<p>Drop&#45;off time: { this.delivery.estimate.dropoff_eta }</p>
+								<p>Estimated time: { this.delivery.estimate.duration } minutes</p>
+								<p>Shipping fee: ${ this.delivery.estimate.fee }</p>
 							</div>
-							<div className="form-group">
-								<label htmlFor="recipient-name" className="form-control-label">Phone</label>
-								<input type="tel" className="form-control" ref="pick_up_phone" name="pick_up_phone" placeholder="(415)888-8888"/>
-							</div>
-							<div className="form-group">
-								<label htmlFor="message-text" className="form-control-label">Notes</label>
-								<textarea className="form-control" ref="pick_up_notes" name="pick_up_notes" maxLength="200" rows="3" placeholder="Enter any instructions for delivery person"></textarea>
+							<div className="modal-footer">
+								<button type="submit" className="btn btn-block btn-success">Request Pick&#45;up Delivery</button>
 							</div>
 						</div>
-						<div className="modal-footer">
-							<button type="submit" className="btn btn-block btn-danger">Get Pick&#45;up Delivery Quote via Postmates</button>
-						</div>						
-					</div>
-					: 
-					<div className="modal-body-footer">
-						<div className="modal-body">
-							<p>Drop&#45;off time: { this.delivery.estimate.dropoff_eta }</p>
-							<p>Estimated time: { this.delivery.estimate.duration }</p>
-							<p>Shipping fee: { this.delivery.estimate.fee }</p>
+					)
+					break;
+
+				case 3:
+					modal_body = (
+						<div className="modal-body-footer">
+							<div className="modal-body">
+								<div className="alert alert-success" role="alert">
+									<strong>Success!</strong> Delivery status: { this.delivery.status.toUpperCase() }
+								</div>
+							</div>
+							<div className="modal-footer">
+								<button type="submit" className="btn btn-block btn-secondary">Close</button>
+							</div>
 						</div>
-						<div className="modal-footer">
-							<button type="submit" className="btn btn-block btn-success">Request Pick&#45;up Delivery</button>
-						</div>
-					</div>
+					)
+					break;
+
+				default:
+					break;
+			} 		
 
 			return (
         		<div className="profile row p-1">
