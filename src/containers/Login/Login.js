@@ -10,7 +10,7 @@ import { LoginForm } from '../../components'
 			this.submitForm = this.submitForm.bind(this)
 		}
 		handleLogin(user) {
-			this.props.onLogin(user)
+			this.props.onAuth(user)
 		}
 		submitForm(data) {
 			this.handleLogin(data)
