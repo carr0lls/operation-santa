@@ -20,8 +20,8 @@ import { UserStory } from '../../components'
 			this.fetchUserData = this.fetchUserData.bind(this)
 			this.handleDonate = this.handleDonate.bind(this)
 		}
-		fetchUserData() {
-			fetch(this.api.url + 'user/' + this.props.params.username)
+		fetchUserData(userId) {
+			fetch(this.api.url + 'user/' + userId)
 				.then((response) => {
 					return response.json()
 				})
@@ -31,11 +31,10 @@ import { UserStory } from '../../components'
 				.catch((ex) => {
 					// user does not exist, move back to home page
 					this.props.router.push('/')
-				})			
+				})
 		}
 		handleDonate(e) {
 			e.preventDefault()
-
 			let pick_up = this.refs.pick_up_address.value.trim()
 			let drop_off = this.state.user.address
 			let pick_up_name = this.refs.pick_up_name.value.trim()
@@ -52,6 +51,8 @@ import { UserStory } from '../../components'
 			}).done((res) => {
 				console.log('Estimate:', res)
 				alert('Estimate delivery quote: ' + res.fee)
+				// Move modal to page 2
+				this.setState({ modal: { step: 2 } })
 			})
 /*			fetch(this.api.url + 'postmates/get_estimate', {
 				method: 'POST',
@@ -73,7 +74,12 @@ import { UserStory } from '../../components'
 		}
 
 		componentDidMount() {
-			this.fetchUserData()
+			this.fetchUserData(this.props.params.username)
+		}
+
+		componentWillReceiveProps(nextProps) {
+			// Re-fetch user data if click on navbar's react-router path to same page with new params
+			this.fetchUserData(nextProps.params.username)
 		}
 
 		render() {
@@ -100,26 +106,26 @@ import { UserStory } from '../../components'
 											<h4 className="modal-title" id="donationModalLabel">Donate to { user.first_name + '\'s family' }</h4>
 										</div>									
 										<div className="modal-body">
-												<div className="form-group">
-													<label htmlFor="recipient-name" className="form-control-label">Name</label>
-													<input type="text" className="form-control" ref="pick_up_name" name="pick_up_name" placeholder="Enter your name" required />
-												</div>
-												<div className="form-group">
-													<label htmlFor="recipient-name" className="form-control-label">Pick&#45;up address</label>
-													<input type="text" className="form-control" ref="pick_up_address" name="pick_up_address" placeholder="Enter address to pick up your donations" required />
-												</div>
-												<div className="form-group">
-													<label htmlFor="recipient-name" className="form-control-label">Pick&#45;up time</label>
-													<input type="datetime-local" className="form-control" ref="pick_up_time" name="pick_up_time" />
-												</div>
-												<div className="form-group">
-													<label htmlFor="recipient-name" className="form-control-label">Phone</label>
-													<input type="tel" className="form-control" ref="pick_up_phone" name="pick_up_phone" pattern="[\(]\d{3}[\)]\d{3}[\-]\d{4}" placeholder="(415)888-8888"/>
-												</div>
-												<div className="form-group">
-													<label htmlFor="message-text" className="form-control-label">Notes</label>
-													<textarea className="form-control" ref="pick_up_notes" name="pick_up_notes" maxLength="200" rows="3" placeholder="Enter any instructions for delivery person"></textarea>
-												</div>
+											<div className="form-group">
+												<label htmlFor="recipient-name" className="form-control-label">Name</label>
+												<input type="text" className="form-control" ref="pick_up_name" name="pick_up_name" placeholder="Enter your name" required />
+											</div>
+											<div className="form-group">
+												<label htmlFor="recipient-name" className="form-control-label">Pick&#45;up address</label>
+												<input type="text" className="form-control" ref="pick_up_address" name="pick_up_address" placeholder="Enter address to pick up your donations" required />
+											</div>
+											<div className="form-group">
+												<label htmlFor="recipient-name" className="form-control-label">Pick&#45;up time</label>
+												<input type="datetime-local" className="form-control" ref="pick_up_time" name="pick_up_time" />
+											</div>
+											<div className="form-group">
+												<label htmlFor="recipient-name" className="form-control-label">Phone</label>
+												<input type="tel" className="form-control" ref="pick_up_phone" name="pick_up_phone" pattern="[\(]\d{3}[\)]\d{3}[\-]\d{4}" placeholder="(415)888-8888"/>
+											</div>
+											<div className="form-group">
+												<label htmlFor="message-text" className="form-control-label">Notes</label>
+												<textarea className="form-control" ref="pick_up_notes" name="pick_up_notes" maxLength="200" rows="3" placeholder="Enter any instructions for delivery person"></textarea>
+											</div>
 										</div>
 										<div className="modal-footer">
 											<button type="submit" className="btn btn-block btn-danger">Get Quote</button>
