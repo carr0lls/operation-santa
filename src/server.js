@@ -8,6 +8,7 @@ import { renderToString } from 'react-dom/server'
 import { match } from 'react-router'
 import { Html } from './helpers'
 import { Constants } from './constants'
+import favicon from 'serve-favicon'
 import routes from './routes'
 
 const api = {
@@ -21,6 +22,7 @@ app.use(compression())
 app.use(express.static(path.join(__dirname, '../public'), {index: false}))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}))
+app.use(favicon(path.join(__dirname, '../public/favicon.ico')))
 
 // Universal rendering by matching routes to react-router components
 app.get('*', (req, res) => {

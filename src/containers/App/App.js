@@ -40,7 +40,7 @@ export default class App extends React.Component {
 
     render() {
         // temp resolution to disable server-side rendering because of authentication requirement
-        let navbar = (typeof localStorage === 'undefined') ? '' : <NavBar {...this.state} onLogout={this.logout} />
+        let navbar = <NavBar {...this.state} onLogout={this.logout} />
         
         return (
             <div>
