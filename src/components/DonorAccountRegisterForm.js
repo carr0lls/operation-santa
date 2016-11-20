@@ -11,10 +11,11 @@ export default class DonorAccountRegisterForm extends React.Component {
 		let last_name = this.refs.last_name.value.trim()
 		let username = this.refs.username.value.trim()
 		let password = this.refs.password.value.trim()
+		let phone_number = this.refs.phone_number.value.trim()
 		let account_type = this.refs.account_type.value.trim()
-		let formData = { first_name, last_name, username, password, account_type }
 
-		this.props.onSubmitForm(formData)
+		let formData = { first_name, last_name, username, password, phone_number, account_type }
+		console.log(formData)
 	}
 
 	render() {
@@ -37,6 +38,10 @@ export default class DonorAccountRegisterForm extends React.Component {
 					<div className="form-group">
 				    	<label htmlFor="password">Password</label>
 				    	<input type="password" className="form-control" ref="password" name="password" placeholder="Password" required />
+					</div>
+					<div className="form-group">
+						<label htmlFor="phone-number" className="form-control-label">Phone Number</label>
+						<input type="tel" className="form-control" ref="phone_number" name="phone_number" placeholder="(888)888-8888" required />
 					</div>
 					<input type="hidden" ref="account_type" name="account_type" value="donor" />
 					<button type="submit" className="btn btn-danger">Submit</button>
