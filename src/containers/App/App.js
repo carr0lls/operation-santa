@@ -26,13 +26,13 @@ export default class App extends React.Component {
         })
     }
     login(user) {
-        localStorage.setItem('profile', JSON.stringify(user))
+        localStorage.setItem(Constants.LOCAL_STORAGE_PROFILE_COOKIE, JSON.stringify(user))
         this.setState({ user })        
         this.props.router.push('/')
     }
     logout() {
         if (localStorage) 
-            localStorage.removeItem('profile')
+            localStorage.removeItem(Constants.LOCAL_STORAGE_PROFILE_COOKIE)
 
         this.setState({ user: {} })
         this.props.router.push('/')

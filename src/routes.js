@@ -15,7 +15,7 @@ import {
 let user = {}
 let browserStorage = (typeof localStorage === 'undefined') ? null : localStorage;
 if (browserStorage) {
-    user = JSON.parse(localStorage.getItem('profile'))
+    user = JSON.parse(localStorage.getItem(Constants.LOCAL_STORAGE_PROFILE_COOKIE))
 }
 
 const containerData = {
