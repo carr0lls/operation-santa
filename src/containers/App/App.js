@@ -22,7 +22,7 @@ export default class App extends React.Component {
             this.login(res)
         })
         .fail((err) => {
-            alert(JSON.parse(err.responseText).error)
+            alert(err.responseJSON.error)
         })
     }
     login(user) {
