@@ -119,6 +119,7 @@ import { UserStory } from '../../components'
 				})
 				.fail((err) => {
 					$('.modal-footer button div').removeClass('progress')
+					alert(err.responseJSON.message)
 				})
 			}
 			else {
