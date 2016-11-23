@@ -19,6 +19,7 @@ import { UserStory } from '../../components'
 
 			this.fetchUserData = this.fetchUserData.bind(this)
 			this.handleDonate = this.handleDonate.bind(this)
+			this.resetModal = this.resetModal.bind(this)
 		}
 		fetchUserData(userId) {
 			fetch(this.api.url + 'user/' + userId)
@@ -127,6 +128,9 @@ import { UserStory } from '../../components'
 				this.setState({ modal: { step: 1 } })
 			}
 		}
+		resetModal(e) {
+			this.setState({ modal: { step: 1 } })
+		}
 
 		componentDidMount() {
 			this.fetchUserData(this.props.params.username)
@@ -215,7 +219,7 @@ import { UserStory } from '../../components'
 								<div className="modal-content">
 									<form>
 										<div className="modal-header">
-											<button type="button" className="close" data-dismiss="modal" aria-label="Close">
+											<button type="button" className="close" onClick={this.resetModal} data-dismiss="modal" aria-label="Close">
 												<span aria-hidden="true">&times;</span>
 											</button>
 											<h4 className="modal-title" id="donationModalLabel">Donate to { user.first_name + '\'s family' }</h4>
