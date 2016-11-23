@@ -11,19 +11,8 @@ import {
     Register 
   } from './containers'
 
-// temp implementation until serverside can provide user profile without checking localstorage
-let user = {}
-let browserStorage = (typeof localStorage === 'undefined') ? null : localStorage;
-if (browserStorage) {
-    user = JSON.parse(localStorage.getItem(Constants.LOCAL_STORAGE_PROFILE_COOKIE))
-}
-
-const containerData = {
-    user
-}
-
 export default (
-    <Route path="/" containerData={containerData} component={App}>
+    <Route path="/" component={App}>
         <IndexRoute component={Home}/>
         <Route path="/user/:username" component={Profile}/>
         <Route path="/about" component={About}/>

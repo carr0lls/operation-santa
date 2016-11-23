@@ -50,10 +50,7 @@ import { FamilyAccountRegisterForm, DonorAccountRegisterForm } from '../../compo
 					return response.json()
 				})
 				.then((json) => {
-					localStorage.setItem('profile', JSON.stringify(json))
-					alert('Successfully registered')
-					console.log(json)
-					this.props.router.push('/')
+					this.handleLogin(json)
 				})
 				.catch((ex) => {
 					console.log('Failed to get register account')

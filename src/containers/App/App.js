@@ -5,7 +5,7 @@ import { Constants } from '../../constants'
 export default class App extends React.Component {
     constructor(props) {
         super(props)
-        this.state = { user: this.props.route.containerData.user }
+        this.state = {}
         this.api = { url: Constants.API_FETCH_URL }
 
         this.userAuth = this.userAuth.bind(this)
@@ -26,20 +26,43 @@ export default class App extends React.Component {
         })
     }
     login(user) {
-        localStorage.setItem(Constants.LOCAL_STORAGE_PROFILE_COOKIE, JSON.stringify(user))
-        this.setState({ user })        
+        localStorage.setItem(Constants.LOCAL_STORAGE_PROFILE_COOKIE, JSON.stringify({t: user.session_token}))
+        delete user.session_token
+        this.setState({ user })
         this.props.router.push('/')
     }
     logout() {
-        if (localStorage) 
-            localStorage.removeItem(Constants.LOCAL_STORAGE_PROFILE_COOKIE)
-
+        localStorage.removeItem(Constants.LOCAL_STORAGE_PROFILE_COOKIE)
         this.setState({ user: {} })
         this.props.router.push('/')
     }
 
+    componentDidMount() {
+        let data = JSON.parse(localStorage.getItem(Constants.LOCAL_STORAGE_PROFILE_COOKIE))
+        if (data) {
+            $.ajax({
+                url: Constants.API_FETCH_URL + 'session',
+                type: 'POST',
+                data: { session_token: data.t }
+            })
+            .done((user) => {
+                delete user.session_token
+                // re-render navbar as user
+                this.setState({ user })
+            })
+            .fail((err) => {
+                localStorage.removeItem(Constants.LOCAL_STORAGE_PROFILE_COOKIE)
+                // re-render navbar as anonymous user
+                this.setState({ user: {} })
+            })
+        }
+        else {
+            // re-render navbar as anonymous user
+            this.setState({ user: {} })
+        }
+    }
+
     render() {
-        // temp resolution to disable server-side rendering because of authentication requirement
         let navbar = <NavBar {...this.state} onLogout={this.logout} />
         
         return (

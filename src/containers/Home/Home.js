@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router'
 import 'whatwg-fetch'
 import { UserStory } from '../../components'
 
@@ -49,9 +50,9 @@ import { UserStory } from '../../components'
 				user = this.state.users[key]
 				userList.push(
 					<li key={user.id} className="list-group-item">
-						<a href={ '/user/' + user.id }>
+						<Link to={'/user/' + user.id} activeClassName="active">
 							<UserStory user={user}>{ user.first_name + '\'s Family' }</UserStory>
-						</a>
+						</Link>
 					</li>
 				)
 			})
