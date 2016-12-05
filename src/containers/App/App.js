@@ -27,7 +27,6 @@ export default class App extends React.Component {
     }
     login(user) {
         localStorage.setItem(Constants.LOCAL_STORAGE_PROFILE_COOKIE, JSON.stringify({t: user.session_token}))
-        delete user.session_token
         this.setState({ user })
         this.props.router.push('/')
     }
@@ -46,7 +45,6 @@ export default class App extends React.Component {
                 data: { session_token: data.t }
             })
             .done((user) => {
-                delete user.session_token
                 // re-render navbar as user
                 this.setState({ user })
             })
@@ -69,7 +67,7 @@ export default class App extends React.Component {
             <div>
                 { navbar }
                 <div className="container">
-                    { React.cloneElement(this.props.children, { onAuth: this.userAuth, onLogin: this.login }) }
+                    { React.cloneElement(this.props.children, { user: this.state.user, onAuth: this.userAuth, onLogin: this.login }) }
                 </div>
             </div>
         )
