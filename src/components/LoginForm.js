@@ -1,18 +1,18 @@
-import React from 'react'
+import React from 'react';
 
 export default class LoginForm extends React.Component {
 	constructor(props) {
-		super(props)
+		super(props);
 
-		this.handleSubmit = this.handleSubmit.bind(this)
+		this.handleSubmit = this.handleSubmit.bind(this);
 	}
 	handleSubmit(e) {
-		e.preventDefault()
-		let username = this.refs.username.value.trim()
-		let password = this.refs.password.value.trim()
-		let formData = { username, password }
+		e.preventDefault();
+		let username = this.refs.username.value.trim();
+		let password = this.refs.password.value.trim();
+		let formData = { username, password };
 
-		this.props.onSubmitForm(formData)
+		this.props.onSubmitForm(formData);
 	}
 
 	render() {
@@ -31,6 +31,6 @@ export default class LoginForm extends React.Component {
 					<button type="submit" className="btn btn-danger">Submit</button>
 				</form>
 			</div>
-		)
+		);
 	}
-}
+};
