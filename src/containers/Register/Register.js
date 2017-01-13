@@ -1,7 +1,7 @@
-import React from 'react'
-import classnames from 'classnames'
-import 'whatwg-fetch'
-import { FamilyAccountRegisterForm, DonorAccountRegisterForm } from '../../components'
+import React from 'react';
+import classnames from 'classnames';
+import 'whatwg-fetch';
+import { FamilyAccountRegisterForm, DonorAccountRegisterForm } from '../../components';
 
 	export default class Register extends React.Component {
 		static get contextTypes() {
@@ -101,6 +101,6 @@ import { FamilyAccountRegisterForm, DonorAccountRegisterForm } from '../../compo
 					<DonorAccountRegisterForm className={formOneClasses} onSubmitForm={this.submitForm} onUpdateForm={this.updateForm}/>					
 					<FamilyAccountRegisterForm className={formTwoClasses} onSubmitForm={this.submitForm} onUpdateForm={this.updateForm}/>
 				</div>
-			)
+			);
 		}
 	}

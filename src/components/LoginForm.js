@@ -1,36 +1,24 @@
 import React from 'react';
 
-export default class LoginForm extends React.Component {
-	constructor(props) {
-		super(props);
+const LoginForm = ({onSubmitForm, onUpdateForm}) => {
 
-		this.handleSubmit = this.handleSubmit.bind(this);
-	}
-	handleSubmit(e) {
-		e.preventDefault();
-		let username = this.refs.username.value.trim();
-		let password = this.refs.password.value.trim();
-		let formData = { username, password };
+	return (
+		<div>
+			<h4>Login</h4>
+			<form onChange={onUpdateForm} onSubmit={onSubmitForm}>
+				<div className="form-group">
+			    	<label htmlFor="username">Email address</label>
+			    	<input type="email" className="form-control" name="username" aria-describedby="emailHelp" placeholder="Enter email" required />
+				</div>
+				<div className="form-group">
+			    	<label htmlFor="password">Password</label>
+			    	<input type="password" className="form-control" name="password" placeholder="Password" required />
+				</div>
+				<button type="submit" className="btn btn-danger">Submit</button>
+			</form>
+		</div>
+	);
 
-		this.props.onSubmitForm(formData);
-	}
-
-	render() {
-		return (
-			<div onSubmit={this.handleSubmit}>
-				<h4>Login</h4>
-				<form>
-					<div className="form-group">
-				    	<label htmlFor="username">Email address</label>
-				    	<input type="email" className="form-control" ref="username" name="username" aria-describedby="emailHelp" placeholder="Enter email" required />
-					</div>
-					<div className="form-group">
-				    	<label htmlFor="password">Password</label>
-				    	<input type="password" className="form-control" ref="password" name="password" placeholder="Password" required />
-					</div>
-					<button type="submit" className="btn btn-danger">Submit</button>
-				</form>
-			</div>
-		);
-	}
 };
+
+export default LoginForm;
