@@ -1,6 +1,6 @@
-import React from 'react'
-import { Route, IndexRoute } from 'react-router'
-import { Constants } from './constants'
+import React from 'react';
+import { Route, IndexRoute } from 'react-router';
+import { Constants } from './constants';
 import { 
     About, 
     Account, 
@@ -10,7 +10,7 @@ import {
     Login,
     Profile,
     Register 
-  } from './containers'
+  } from './containers';
 
 export default (
     <Route path="/" component={App}>
@@ -21,4 +21,4 @@ export default (
         <Route path="/login" component={Login}/>
         <Route path="/register" component={Register}/>
     </Route>
-)
+);
