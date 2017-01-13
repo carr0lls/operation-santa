@@ -1,16 +1,16 @@
-import React from 'react'
-import { NavBar } from '../../components'
-import { Constants } from '../../constants'
+import React from 'react';
+import { NavBar } from '../../components';
+import { Constants } from '../../constants';
 
 export default class App extends React.Component {
     constructor(props) {
-        super(props)
-        this.state = {}
-        this.api = { url: Constants.API_FETCH_URL }
+        super(props);
+        this.state = {};
+        this.api = { url: Constants.API_FETCH_URL };
 
-        this.userAuth = this.userAuth.bind(this)
-        this.login = this.login.bind(this)
-        this.logout = this.logout.bind(this)
+        this.userAuth = this.userAuth.bind(this);
+        this.login = this.login.bind(this);
+        this.logout = this.logout.bind(this);
     }
     userAuth(user) {
         $.ajax({
@@ -19,25 +19,25 @@ export default class App extends React.Component {
             data: user
         })
         .done((res) => {
-            this.login(res)
+            this.login(res);
         })
         .fail((err) => {
-            alert(err.responseJSON.error)
-        })
+            alert(err.responseJSON.error);
+        });
     }
     login(user) {
-        localStorage.setItem(Constants.LOCAL_STORAGE_PROFILE_COOKIE, JSON.stringify({t: user.session_token}))
-        this.setState({ user })
-        this.props.router.push('/')
+        localStorage.setItem(Constants.LOCAL_STORAGE_PROFILE_COOKIE, JSON.stringify({t: user.session_token}));
+        this.setState({ user });
+        this.props.router.push('/');
     }
     logout() {
-        localStorage.removeItem(Constants.LOCAL_STORAGE_PROFILE_COOKIE)
-        this.setState({ user: {} })
-        this.props.router.push('/')
+        localStorage.removeItem(Constants.LOCAL_STORAGE_PROFILE_COOKIE);
+        this.setState({ user: {} });
+        this.props.router.push('/');
     }
 
     componentDidMount() {
-        let data = JSON.parse(localStorage.getItem(Constants.LOCAL_STORAGE_PROFILE_COOKIE))
+        let data = JSON.parse(localStorage.getItem(Constants.LOCAL_STORAGE_PROFILE_COOKIE));
         if (data) {
             $.ajax({
                 url: Constants.API_FETCH_URL + 'session',
@@ -46,22 +46,22 @@ export default class App extends React.Component {
             })
             .done((user) => {
                 // re-render navbar as user
-                this.setState({ user })
+                this.setState({ user });
             })
             .fail((err) => {
-                localStorage.removeItem(Constants.LOCAL_STORAGE_PROFILE_COOKIE)
+                localStorage.removeItem(Constants.LOCAL_STORAGE_PROFILE_COOKIE);
                 // re-render navbar as anonymous user
-                this.setState({ user: {} })
+                this.setState({ user: {} });
             })
         }
         else {
             // re-render navbar as anonymous user
-            this.setState({ user: {} })
+            this.setState({ user: {} });
         }
     }
 
     render() {
-        let navbar = <NavBar {...this.state} onLogout={this.logout} />
+        let navbar = <NavBar {...this.state} onLogout={this.logout} />;
         
         return (
             <div>
@@ -70,6 +70,6 @@ export default class App extends React.Component {
                     { React.cloneElement(this.props.children, { user: this.state.user, onAuth: this.userAuth, onLogin: this.login }) }
                 </div>
             </div>
-        )
+        );
     }
-}
+};

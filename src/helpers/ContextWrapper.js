@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 export default class ContextWrapper extends React.Component {
     static get childContextTypes() {
@@ -16,4 +16,4 @@ export default class ContextWrapper extends React.Component {
     render() {
         return this.props.children
     }
-}
+};
