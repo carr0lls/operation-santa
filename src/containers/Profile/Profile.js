@@ -213,18 +213,26 @@ export default class Profile extends React.Component {
 		return (
     		<div className="profile row p-1">
 				<UserStory user={user}>{ header }</UserStory>
-				<div className="donation-modal" onSubmit={this.handleDonate}>
+				<div>
+					<h1>Wishlist</h1>
+					<ul>
+						<li>iPod</li>
+						<li>Barbie</li>
+						<li>Legos</li>
+					</ul>
+				</div>
+				<div className="donation-modal">
 					<button type="button" className="btn btn-success btn-lg" data-toggle="modal" data-target="#donationModal">Donate</button>
 					<div className="modal fade" id="donationModal" tabIndex="-1" role="dialog" aria-labelledby="donationModalLabel" aria-hidden="true">
 						<div className="modal-dialog" role="document">
 							<div className="modal-content">
-								<form>
+								<form onSubmit={this.handleDonate}>
 									<div className="modal-header">
 										<button type="button" className="close" onClick={this.resetModal} data-dismiss="modal" aria-label="Close">
 											<span aria-hidden="true">&times;</span>
 										</button>
 										<h4 className="modal-title" id="donationModalLabel">Donate to { user.first_name + '\'s family' }</h4>
-									</div>									
+									</div>							
 									{ modal_body }
 								</form>									
 							</div>
