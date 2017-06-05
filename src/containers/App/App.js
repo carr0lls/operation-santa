@@ -1,4 +1,5 @@
 import React from 'react';
+import request from 'superagent';
 import { NavBar } from '../../components';
 import { Constants } from '../../constants';
 
@@ -13,17 +14,17 @@ export default class App extends React.Component {
         this.logout = this.logout.bind(this);
     }
     userAuth(user) {
-        $.ajax({
-            url: this.api.url + 'session',
-            type: 'POST',
-            data: user
-        })
-        .done((res) => {
-            this.login(res);
-        })
-        .fail((err) => {
-            alert(err.responseJSON.error);
-        });
+        request
+            .post(this.api.url + 'session')
+            .send(user)
+            .end((err, result) => {
+                if (err) {
+                    alert(err.responseJSON.error);
+                }
+                else {
+                    this.login(result.body);
+                }
+            });
     }
     login(user) {
         localStorage.setItem(Constants.LOCAL_STORAGE_PROFILE_COOKIE, JSON.stringify({t: user.session_token}));
@@ -39,20 +40,20 @@ export default class App extends React.Component {
     componentDidMount() {
         let data = JSON.parse(localStorage.getItem(Constants.LOCAL_STORAGE_PROFILE_COOKIE));
         if (data) {
-            $.ajax({
-                url: Constants.API_FETCH_URL + 'session',
-                type: 'POST',
-                data: { session_token: data.t }
-            })
-            .done((user) => {
-                // re-render navbar as user
-                this.setState({ user });
-            })
-            .fail((err) => {
-                localStorage.removeItem(Constants.LOCAL_STORAGE_PROFILE_COOKIE);
-                // re-render navbar as anonymous user
-                this.setState({ user: {} });
-            })
+            request
+                .post(this.api.url + 'session')
+                .send({ session_token: data.t })
+                .end((err, result) => {
+                    if (err) {
+                        localStorage.removeItem(Constants.LOCAL_STORAGE_PROFILE_COOKIE);
+                        // re-render navbar as anonymous user
+                        this.setState({ user: {} });
+                    }
+                    else {
+                        // re-render navbar as user
+                        this.setState({ user: result.body });
+                    }
+                });
         }
         else {
             // re-render navbar as anonymous user

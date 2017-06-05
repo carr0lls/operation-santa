@@ -42,7 +42,7 @@ app.get('*', (req, res) => {
 						console.log('failed to retrieve users list', err);
 	            	}
 	            	else {
-	            		const data = { users: result.body, api };
+	            		const data = { users: {}, api };
 						res.send('<!DOCTYPE html>\n' + 
 							renderToString(<Html renderProps={renderProps} data={data}/>));
 	            	}

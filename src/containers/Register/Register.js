@@ -1,6 +1,6 @@
 import React from 'react';
 import classnames from 'classnames';
-import 'whatwg-fetch';
+import request from 'superagent';
 import { FamilyAccountRegisterForm, DonorAccountRegisterForm } from '../../components';
 
 export default class Register extends React.Component {
@@ -54,30 +54,18 @@ export default class Register extends React.Component {
 		e.preventDefault();
 		const data = this.state.form[this.state.active];
 
-		$.ajax({
-			url: this.api.url + 'user',
-			type: 'POST',
-			data
-		}).done((res) => {
-			this.handleLogin(res);
-		});
-/*			fetch(this.api.url + 'user', {
-			method: 'POST',
-			headers: {
-				'Accept': 'application/json',
-				'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-			},
-			body: data
-		})
-			.then((response) => { 
-				return response.json();
-			})
-			.then((json) => {
-				this.handleLogin(json);
-			})
-			.catch((ex) => {
-				console.log('Failed to get register account');
-			})*/
+		request
+        	.post(this.api.url + 'user')
+        	.send(data)
+			.end((err, result) => {
+        		if (err) {
+            		$('.modal-footer button div').removeClass('progress');
+					alert(err.responseJSON.message);
+            	}
+            	else {
+            		this.handleLogin(result.body);
+            	}
+        	});
 	}
 
 	render() {

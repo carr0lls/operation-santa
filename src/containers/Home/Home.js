@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
-import 'whatwg-fetch';
+import request from 'superagent';
 import { UserStory } from '../../components';
 
 export default class Home extends React.Component {
@@ -23,17 +23,17 @@ export default class Home extends React.Component {
 		this.submitForm = this.submitForm.bind(this);
 	}
 	fetchData() {
-		fetch(this.api.url + 'user?account_type=family')
-			.then((response) => {
-				return response.json();
-			})
-			.then((json) => {
-				this.setState({ users: json });
-			})
-			.catch((ex) => {
-				// user does not exist, move back to home page
-				console.log('failed to retrieve users list', ex);
-			})
+		request
+        	.get(this.api.url + 'user?account_type=family')
+			.end((err, result) => {
+        		if (err) {
+            		// user does not exist, move back to home page
+					console.log('failed to retrieve users list', err);
+            	}
+            	else {
+            		this.setState({ users: result.body });
+            	}
+        	});
 	}
 	submitForm() {
 		

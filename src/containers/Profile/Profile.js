@@ -1,5 +1,5 @@
 import React from 'react';
-import 'whatwg-fetch';
+import request from 'superagent';
 import { UserStory } from '../../components';
 
 export default class Profile extends React.Component {
@@ -22,17 +22,17 @@ export default class Profile extends React.Component {
 		this.resetModal = this.resetModal.bind(this);
 	}
 	fetchUserData(userId) {
-		fetch(this.api.url + 'user/' + userId)
-			.then((response) => {
-				return response.json();
-			})
-			.then((json) => {
-				this.setState({ user: json });
-			})
-			.catch((ex) => {
-				// user does not exist, move back to home page
-				this.props.router.push('/');
-			});
+		request
+        	.get(this.api.url + 'user/' + userId)
+			.end((err, result) => {
+        		if (err) {
+            		// user does not exist, move back to home page
+					this.props.router.push('/');
+            	}
+            	else {
+            		this.setState({ user: result.body });
+            	}
+        	});
 	}
 	handleDonate(e) {
 		e.preventDefault();
@@ -63,44 +63,25 @@ export default class Profile extends React.Component {
 				dropoff_address 
 			};
 
-			$.ajax({
-				url: this.api.url + 'postmates/get_estimate',
-				type: 'POST',
-				data
-			})
-			.done((res) => {
-				// Move modal to page 2
-				$('.modal-footer button div').removeClass('progress');
-				let fee = res.fee.toString();
-				res.fee = fee.substring(0, fee.length-2) + "." + fee.substring(fee.length-2, fee.length);
-				let dropoff_eta = new Date(res.dropoff_eta);
-				res.dropoff_eta = dropoff_eta.toLocaleString();
-				this.delivery.estimate = res;
-				this.setState({ modal: { step: 2 } });
-			})
-			.fail((err) => {
-				$('.modal-footer button div').removeClass('progress');
-				alert(err.responseJSON.message);
-			});
-/*				fetch(this.api.url + 'postmates/get_estimate', {
-				method: 'POST',
-				headers: {
-					'Accept': 'application/json',
-					'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-				},
-				body: data
-			})
-				.then((response) => { 
-					return response.json();
-				})
-				.then((json) => {
-					// Move modal to page 2
-					this.delivery.estimate = json;
-					this.setState({ modal: { step: 2, data: res } });
-				})
-				.catch((ex) => {
-					console.log('Failed to get estimate');
-				}); */
+			request
+	        	.post(this.api.url + 'postmates/get_estimate')
+	        	.send(data)
+				.end((err, result) => {
+	        		if (err) {
+	            		$('.modal-footer button div').removeClass('progress');
+						alert(err.responseJSON.message);
+	            	}
+	            	else {
+	            		// Move modal to page 2
+						$('.modal-footer button div').removeClass('progress');
+						let fee = result.body.fee.toString();
+						result.body.fee = fee.substring(0, fee.length-2) + "." + fee.substring(fee.length-2, fee.length);
+						let dropoff_eta = new Date(result.body.dropoff_eta);
+						result.body.dropoff_eta = dropoff_eta.toLocaleString();
+						this.delivery.estimate = result.body;
+						this.setState({ modal: { step: 2 } });
+	            	}
+	        	});
 		}
 		else if (this.state.modal.step === 2) {
 			$('.modal-footer button div').addClass('progress');
@@ -108,21 +89,21 @@ export default class Profile extends React.Component {
 			let data = this.delivery.info;
 			data.quote_id = this.delivery.estimate.id;
 
-			$.ajax({
-				url: this.api.url + 'postmates/create_delivery',
-				type: 'POST',
-				data
-			})
-			.done((res) => {
-				$('.modal-footer button div').removeClass('progress');
-				// Move modal to page 2
-				this.delivery.status = res.status;
-				this.setState({ modal: { step: 3 } });
-			})
-			.fail((err) => {
-				$('.modal-footer button div').removeClass('progress');
-				alert(err.responseJSON.message);
-			});
+			request
+	        	.post(this.api.url + 'postmates/create_delivery')
+	        	.send(data)
+				.end((err, result) => {
+	        		if (err) {
+	            		$('.modal-footer button div').removeClass('progress');
+						alert(err.responseJSON.message);
+	            	}
+	            	else {
+	            		$('.modal-footer button div').removeClass('progress');
+						// Move modal to page 2
+						this.delivery.status = res.body.status;
+						this.setState({ modal: { step: 3 } });
+	            	}
+	        	});
 		}
 		else {
 			$('#donationModal').modal('hide');
