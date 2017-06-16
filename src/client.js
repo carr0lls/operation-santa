@@ -2,7 +2,6 @@ import React from 'react';
 import { render } from 'react-dom';
 // import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { Provider } from 'react-redux';
-import { BrowserRouter } from 'react-router-dom';
 import { ConnectedRouter } from 'react-router-redux';
 import history from './history';
 // import { ContextWrapper } from './helpers';

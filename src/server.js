@@ -5,19 +5,19 @@ import bodyParser from 'body-parser';
 import request from 'superagent';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+// import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { StaticRouter } from 'react-router';
 import { Provider } from 'react-redux';
 import { Html } from './helpers';
-import { Constants } from './constants';
+// import { Constants } from './constants';
 import favicon from 'serve-favicon';
 import Routes from './routes';
 import store from './store';
 
-const api = {
+/*const api = {
     url: Constants.API_FETCH_URL,
     pollInterval: Constants.API_REFRESH_INTERVAL
-};
+};*/
 const app = express();
 
 app.set('port', 4000);
