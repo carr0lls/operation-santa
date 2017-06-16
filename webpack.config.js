@@ -2,7 +2,10 @@ var webpack = require('webpack')
 var path = require('path')
 
 module.exports = {
-  entry: path.resolve(__dirname, 'src/client.js'),
+  entry: [
+    'babel-polyfill', 
+    path.resolve(__dirname, 'src/client.js')
+  ],
 
   output: {
     path: path.resolve(__dirname, 'public/scripts'),
@@ -14,7 +17,11 @@ module.exports = {
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.optimize.UglifyJsPlugin()
-  ] : [],
+  ] : [
+    new webpack.DefinePlugin({
+      'process.env.BROWSER': true
+    })
+  ],
 
   module: {
     loaders: [

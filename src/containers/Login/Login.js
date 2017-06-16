@@ -1,7 +1,9 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { LoginForm } from '../../components';
+import { login } from '../../actions';
 
-export default class Login extends React.Component {
+class Login extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {user: {}};
@@ -11,7 +13,8 @@ export default class Login extends React.Component {
 		this.submitForm = this.submitForm.bind(this);
 	}
 	handleLogin(user) {
-		this.props.onAuth(user);
+		// this.props.onLogin(user);
+		this.props.dispatch(login(user));
 	}
 	updateForm(e) {
 		const newState = this.state.user;
@@ -32,3 +35,9 @@ export default class Login extends React.Component {
 		);
 	}
 };
+
+function mapStateToProps({ user }) {
+	return { user }
+}
+
+export default connect(mapStateToProps)(Login);

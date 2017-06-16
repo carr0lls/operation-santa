@@ -1,58 +1,30 @@
 import React from 'react';
-import { Link } from 'react-router';
-import request from 'superagent';
+import { NavLink } from 'react-router-dom';
+import { connect } from 'react-redux';
 import { UserStory } from '../../components';
+import { fetchAllUsers } from '../../actions';
 
-export default class Home extends React.Component {
-	static get contextTypes() {
-	    return {
-	        data: React.PropTypes.object
-	    }
-	}
-	constructor(props, context) {
-		super(props, context);
-		this.state = {
-			users: context.data.users || {}
-		}
-		this.api = {
-			url: context.data.api.url,
-			refresh: context.data.api.pollInterval
-		}
+class Home extends React.Component {
+	constructor(props) {
+		super(props);
 
 		this.fetchData = this.fetchData.bind(this);
-		this.submitForm = this.submitForm.bind(this);
 	}
 	fetchData() {
-		request
-        	.get(this.api.url + 'user?account_type=family')
-			.end((err, result) => {
-        		if (err) {
-            		// user does not exist, move back to home page
-					console.log('failed to retrieve users list', err);
-            	}
-            	else {
-            		this.setState({ users: result.body });
-            	}
-        	});
-	}
-	submitForm() {
-		
+		this.props.dispatch(fetchAllUsers({ account_type: 'family' }));
 	}
 
 	componentDidMount() {
 		this.fetchData();
-		// setInterval(this.fetchData, this.api.refresh);
 	}
 
 	render() {
-		let user, userList = [];
-		Object.keys(this.state.users).map((key) => {
-			user = this.state.users[key];
-			userList.push(
+		let userList = Object.values(this.props.home.users).map((user) => {
+			return (
 				<li key={user.id} className="list-group-item">
-					<Link to={'/user/' + user.id} activeClassName="active">
+					<NavLink to={'/user/' + user.id} activeClassName="active">
 						<UserStory user={user}>{ user.first_name + '\'s Family' }</UserStory>
-					</Link>
+					</NavLink>
 				</li>
 			);
 		});
@@ -69,3 +41,9 @@ export default class Home extends React.Component {
 		);
 	}
 };
+
+function mapStateToProps({ home }) {
+  return { home };
+}
+
+export default connect(mapStateToProps)(Home);

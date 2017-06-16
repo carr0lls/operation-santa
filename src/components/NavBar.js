@@ -1,19 +1,29 @@
 import React from 'react';
-import NavLink from './NavLink';
+import NavigationLink from './NavigationLink';
 
 const NavBar = ({user, onLogout}) => {
     let navlinks;
 
+    if (!user.authComplete) {
+        // Server-side and client-side initial render
+        navlinks =  (
+            <ul className="nav navbar-nav">
+                <li className="nav-item">
+                    <NavigationLink className="nav-link" to="/about">About</NavigationLink>
+                </li>
+            </ul>
+        );
+    }
     // Temp resolution to disable server-side rendering because of authentication requirement
-    if (user && user.hasOwnProperty('first_name')) { 
+    else if (user.authComplete && user.isLoaded) { 
         // Client-side re-render if user is logged in
         navlinks = (
             <ul className="nav navbar-nav">
                 <li className="nav-item">
-                    <NavLink className="nav-link" to="/about">About</NavLink>
+                    <NavigationLink className="nav-link" to="/about">About</NavigationLink>
                 </li>        
                 <li className="nav-item">
-                    <NavLink className="nav-link" to={'/user/' + user.id}>{user['first_name']}</NavLink>
+                    <NavigationLink className="nav-link" to={'/user/' + user.id}>{user['first_name']}</NavigationLink>
                 </li>
                 <li className="nav-item">
                     <a className="nav-link" href="#" onClick={onLogout}>Logout</a>
@@ -21,28 +31,18 @@ const NavBar = ({user, onLogout}) => {
             </ul>
         );
     }
-    else if (user) {
+    else {
         // Client-side re-render if user is anonymous
         navlinks =  (
             <ul className="nav navbar-nav">
                 <li className="nav-item">
-                    <NavLink className="nav-link" to="/about">About</NavLink>
+                    <NavigationLink className="nav-link" to="/about">About</NavigationLink>
                 </li>
                 <li className="nav-item">
-                    <NavLink className="nav-link" to="/register">Sign Up</NavLink>
+                    <NavigationLink className="nav-link" to="/register">Sign Up</NavigationLink>
                 </li>
                 <li className="nav-item">
-                    <NavLink className="nav-link" to="/login">Login</NavLink>
-                </li>
-            </ul>
-        );
-    }
-    else {
-        // Server-side and client-side initial render
-        navlinks =  (
-            <ul className="nav navbar-nav">
-                <li className="nav-item">
-                    <NavLink className="nav-link" to="/about">About</NavLink>
+                    <NavigationLink className="nav-link" to="/login">Login</NavigationLink>
                 </li>
             </ul>
         );
@@ -50,8 +50,8 @@ const NavBar = ({user, onLogout}) => {
 
     return (
         <nav className="navbar navbar-full navbar-dark bg-danger mb-2">
-            <NavLink className="navbar-brand" to="/" onlyActiveOnIndex>Operation Santa</NavLink>
-            {navlinks}
+            <NavigationLink className="navbar-brand" to="/">Operation Santa</NavigationLink>
+            { navlinks }
         </nav>
     );
 

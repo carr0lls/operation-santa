@@ -13,7 +13,8 @@ export default class Register extends React.Component {
 		super(props);
 		this.state = {form: {1: {account_type: 'donor'}, 2: {account_type: 'family', family_size: 1}}};
 		this.api = {
-			url: context.data.api.url
+			url: 'https://api-operation-santa.herokuapp.com/api/',
+			refresh: 3000
 		}
 
 		this.toggleFormOne = this.toggleFormOne.bind(this);

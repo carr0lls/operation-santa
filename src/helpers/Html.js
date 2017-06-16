@@ -1,17 +1,13 @@
 import React from 'react';
-import { RouterContext } from 'react-router';
+// import { RouterContext } from 'react-router';
 import { renderToString } from 'react-dom/server';
-import ContextWrapper from './ContextWrapper';
+// import ContextWrapper from './ContextWrapper';
 
-const Html = ({data, renderProps}) => {
+const Html = ({ component, store }) => {
 
-    let stringData = 'var APP_STATE = ' + JSON.stringify(data) + ';';
+    let stringData = `window.__data=${JSON.stringify(store.getState())};`
 
-    let content = renderToString(
-                        <ContextWrapper data={data}>
-                            <RouterContext {...renderProps}/>
-                        </ContextWrapper>
-                    );
+    let content = renderToString(component);
 
     return (
         <html lang="en">
@@ -26,7 +22,7 @@ const Html = ({data, renderProps}) => {
             </head>
             <body>
                 <div id="content" dangerouslySetInnerHTML={{__html: content}}/>
-                <script dangerouslySetInnerHTML={{__html: stringData}}></script>
+                <script dangerouslySetInnerHTML={{__html: stringData}} charSet="UTF-8"/>
                 <script src="/scripts/jquery.min.js"></script>
                 <script src="/scripts/tether.min.js"></script>
                 <script src="/scripts/bootstrap.min.js"></script>

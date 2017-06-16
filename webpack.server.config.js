@@ -1,8 +1,12 @@
-var fs = require('fs')
-var path = require('path')
+var webpack = require('webpack');
+var fs = require('fs');
+var path = require('path');
 
 module.exports = {
-  entry: path.resolve(__dirname, 'src/server.js'),
+  entry: [
+    'babel-polyfill', 
+    path.resolve(__dirname, 'src/server.js')
+  ],
 
   output: {
     filename: path.resolve(__dirname, 'src/server.bundle.js')
@@ -22,6 +26,12 @@ module.exports = {
     __filename: false,
     __dirname: false
   },
+
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.env.BROWSER': false
+    })
+  ],
 
   module: {
     loaders: [

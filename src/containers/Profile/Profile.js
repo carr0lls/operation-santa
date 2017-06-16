@@ -1,20 +1,19 @@
 import React from 'react';
 import request from 'superagent';
+import { connect } from 'react-redux';
 import { UserStory } from '../../components';
+import { fetchUserProfile } from '../../actions';
 
-export default class Profile extends React.Component {
-	static get contextTypes() {
-	    return {
-	        data: React.PropTypes.object
-	    }
-	}
-	constructor(props, context) {
-		super(props, context);
+class Profile extends React.Component {
+	constructor(props) {
+		super(props);
 		this.state = {
-			user: context.data.users[this.props.params.username] || {},
+			user: {},
 			modal: { step: 1 }
 		}
-		this.api = { url: context.data.api.url };
+		this.api = { 
+			url: 'https://api-operation-santa.herokuapp.com/api/'
+		};
 		this.delivery = {};
 
 		this.fetchUserData = this.fetchUserData.bind(this);
@@ -115,18 +114,20 @@ export default class Profile extends React.Component {
 	}
 
 	componentDidMount() {
-		this.fetchUserData(this.props.params.username);
+		this.props.dispatch(fetchUserProfile(this.props.match.params.username));
 	}
 
-	componentWillReceiveProps(nextProps) {
-		// Re-fetch user data if click on navbar's react-router path to same page with new params
-		this.fetchUserData(nextProps.params.username);
+	componentWillReceiveProps(nextProps, nextState) {
+		// Re-fetch profile data if click on navbar's react-router path to same page with new params
+		if (nextProps.router.location.pathname !== this.props.router.location.pathname) {
+			this.props.dispatch(fetchUserProfile(nextProps.match.params.username));
+		}
 	}
 
 	render() {
 		let modal_body;
-		let user = this.state.user;
-		let header = (user.account_type == 'family') ? user.first_name + '\'s family' : user.first_name;
+		let profile = this.props.profile;
+		let header = (profile.account_type == 'family') ? profile.first_name + '\'s family' : profile.first_name;
 
 		switch (this.state.modal.step) {
 			case 1:
@@ -193,7 +194,7 @@ export default class Profile extends React.Component {
 
 		return (
     		<div className="profile row p-1">
-				<UserStory user={user}>{ header }</UserStory>
+				<UserStory user={profile}>{ header }</UserStory>
 				<div>
 					<h1>Wishlist</h1>
 					<ul>
@@ -212,7 +213,7 @@ export default class Profile extends React.Component {
 										<button type="button" className="close" onClick={this.resetModal} data-dismiss="modal" aria-label="Close">
 											<span aria-hidden="true">&times;</span>
 										</button>
-										<h4 className="modal-title" id="donationModalLabel">Donate to { user.first_name + '\'s family' }</h4>
+										<h4 className="modal-title" id="donationModalLabel">Donate to { profile.first_name + '\'s family' }</h4>
 									</div>							
 									{ modal_body }
 								</form>									
@@ -224,3 +225,12 @@ export default class Profile extends React.Component {
 		);
 	}
 };
+
+function mapStateToProps({ profile, router }) {
+	return {
+		profile,
+		router
+	}
+}
+
+export default connect(mapStateToProps)(Profile);
