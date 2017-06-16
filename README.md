@@ -10,7 +10,10 @@ This web app supports universal rendering via ReactJS, routing with React-Router
 
 ## Tech stack
 - [React](https://github.com/facebook/react)
+- [Redux](https://github.com/reactjs/redux)
 - [React Router](https://github.com/ReactTraining/react-router)
+- [React Router Redux](https://github.com/ReactTraining/react-router/tree/master/packages/react-router-redux)
+- [Redux Thunk](https://github.com/gaearon/redux-thunk)
 - [Webpack](https://github.com/webpack/webpack)
 - [Twitter Bootstrap](https://github.com/twbs/bootstrap)
 
@@ -30,7 +33,7 @@ And visit <http://localhost:4000/> to access GUI.
 
 ## Todo
 - Build edit profile page
-- Integrate a flux architecture (Redux?)
+- Family wishlist
 
 ## Preview
 
