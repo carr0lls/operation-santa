@@ -1,6 +1,8 @@
 import React from 'react';
+import classnames from 'classnames';
 
-const EditProfileForm = ({user, className, onSubmitForm, onUpdateForm}) => {
+const EditProfileForm = ({user, className, onSubmitForm, onUpdateForm, isUpdating}) => {
+	const updatingBtnProgressClasses = classnames({'progress': isUpdating});
 
 	return (
 		<div className={className}>
@@ -15,8 +17,12 @@ const EditProfileForm = ({user, className, onSubmitForm, onUpdateForm}) => {
 			    	<input type="text" className="form-control" name="last_name" placeholder="Enter last name" required />
 				</div>
 				<div className="form-group">
-			    	<label htmlFor="username">Email address</label>
-			    	<input type="email" className="form-control" name="username" aria-describedby="emailHelp" placeholder="Enter email" required />
+			    	<label htmlFor="email">Email address</label>
+			    	<input type="email" className="form-control" name="email" aria-describedby="emailHelp" placeholder="Enter email" required />
+				</div>
+				<div className="form-group">
+			    	<label htmlFor="username">Username</label>
+			    	<input type="text" className="form-control" name="username" placeholder="Enter username" required />
 				</div>
 				<div className="form-group">
 			    	<label htmlFor="password">Password</label>
@@ -26,7 +32,9 @@ const EditProfileForm = ({user, className, onSubmitForm, onUpdateForm}) => {
 					<label htmlFor="phone-number" className="form-control-label">Phone Number</label>
 					<input type="tel" className="form-control" name="phone_number" placeholder="(888)888-8888" required />
 				</div>
-				<button type="submit" className="btn btn-danger">Submit</button>
+				<button type="submit" className="btn btn-danger btn-block btn-lg">
+					<div className={updatingBtnProgressClasses}>Update</div>
+				</button>
 			</form>
 		</div>
 	);

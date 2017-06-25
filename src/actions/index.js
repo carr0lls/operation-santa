@@ -1,6 +1,8 @@
 import axios from 'axios';
 import { push } from 'react-router-redux';
-
+// axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+// axios.defaults.headers.put['Content-Type'] = 'text/plain';
+// console.log(axios.defaults.headers);
 // https://stackoverflow.com/questions/34930735/pros-cons-of-using-redux-saga-with-es6-generators-vs-redux-thunk-with-es7-async
 
 export const authenticate = (userData) => async (dispatch) => {
@@ -30,23 +32,23 @@ export const skipAuthentication = () => {
 
 export const login = (formData) => async (dispatch) => {
 	try {
-		dispatch({ type: 'USER_LOGIN_REQUEST' });
+		dispatch({ type: 'LOGIN_REQUEST' });
 
 		dispatch({ type: 'FETCH_USER_REQUEST' });
 
 		const { data } = await axios.post(`https://api-operation-santa.herokuapp.com/api/session`, formData);
 		dispatch({ type: 'FETCH_USER_SUCCESS', response: data });
 
-		dispatch({ type: 'USER_LOGIN_SUCCESS' });
+		dispatch({ type: 'LOGIN_SUCCESS' });
 
-		dispatch({ type: 'USER_LOGIN_PERSIST' });
+		dispatch({ type: 'USER_LOGIN_PERSIST', data: data });
 
         dispatch(push('/'));
 	}
 	catch (e) {
 		dispatch({ type: 'FETCH_USER_FAIL', error: e });
 
-		dispatch({ type: 'USER_LOGIN_FAIL' });
+		dispatch({ type: 'LOGIN_FAIL' });
 	}
 }
 
@@ -78,6 +80,105 @@ export const fetchAllUsers = (options) => async (dispatch) => {
 		dispatch({ type: 'FETCH_ALL_USERS_SUCCESS', response: data });
 	}
 	catch (e) {
-		dispatch({ type: 'FETCH_ALL_USERS_FAIL' });
+		dispatch({ type: 'FETCH_ALL_USERS_FAIL', error: e });
+	}
+}
+
+export const setModalStep = (step = 1) => {
+	return { 
+		type: 'SET_MODAL_STEP',
+		data: step
+	}	
+}
+
+export const getEstimateFromPostmates = (deliveryData) => async (dispatch) => {
+	try {
+		dispatch({ type: 'FETCH_POSTMATES_ESTIMATE_REQUEST' });
+
+		const { data } = await axios.post(`https://api-operation-santa.herokuapp.com/api/postmates/get_estimate`, deliveryData);
+		// Format response data
+		const fee = data.fee.toString();
+		data.fee = fee.substring(0, fee.length-2) + "." + fee.substring(fee.length-2, fee.length);
+		const dropoff_eta = new Date(data.dropoff_eta);
+		data.dropoff_eta = dropoff_eta.toLocaleString();
+		dispatch({ type: 'FETCH_POSTMATES_ESTIMATE_SUCCESS', response: data });
+
+		// Move modal to page 2
+		dispatch(setModalStep(2));	
+	}
+	catch (e) {
+		dispatch({ type: 'FETCH_POSTMATES_ESTIMATE_FAIL', error: e.message });
+		alert(e.message);
+	}
+}
+
+export const createPostmatesDelivery = (deliveryData) => async (dispatch) => {
+	try {
+		dispatch({ type: 'CREATE_POSTMATES_DELIVERY_REQUEST' });
+		$('.modal-footer button div').addClass('progress');	
+
+		const { data } = await axios.post(`https://api-operation-santa.herokuapp.com/api/postmates/create_delivery`, deliveryData);
+		dispatch({ type: 'CREATE_POSTMATES_DELIVERY_SUCCESS', response: data.status });
+
+		// Move modal to page 3
+		$('.modal-footer button div').removeClass('progress');
+		dispatch(setModalStep(3));
+	}
+	catch (e) {
+		dispatch({ type: 'CREATE_POSTMATES_DELIVERY_FAIL', error: e.message });
+		$('.modal-footer button div').removeClass('progress');
+		alert(e.message);
+	}
+}
+
+export const updateDeliveryModalForm = (formData) => {
+	return { type: 'UPDATE_DELIVERY_MODAL_FORM', data: formData };
+}
+
+export const toggleRegistrationForm = (formNumber) => {
+	return { type: 'TOGGLE_REGISTRATION_FORM', data: formNumber };
+}
+
+export const updateRegistrationForm = (formData) => {
+	return { type: 'UPDATE_REGISTRATION_FORM', data: formData };
+}
+
+export const registerNewUser = (userData) => async (dispatch) => {
+	try {
+		dispatch({ type: 'CREATE_NEW_USER_REQUEST' });
+
+		const { data } = await axios.post(`https://api-operation-santa.herokuapp.com/api/user`, userData);
+		dispatch({ type: 'CREATE_NEW_USER_SUCCESS' });
+
+		dispatch({ type: 'USER_LOGIN_PERSIST', data: data });
+
+		dispatch(push('/'));
+
+	}
+	catch (e) {
+		dispatch({ type: 'CREATE_NEW_USER_FAIL', error: e.message });
+		alert(e.message);
+	}
+}
+
+export const updateLoginForm = (formData) => {
+	return { type: 'UPDATE_LOGIN_FORM', data: formData };
+}
+
+export const updateUserSettingsForm = (formData) => {
+	return { type: 'UPDATE_USER_SETTINGS_FORM', data: formData }
+}
+
+export const updateUserSettings = (userData) => async (dispatch) => {
+	try {
+		dispatch({ type: 'UPDATE_USER_SETTINGS_REQUEST' });
+
+		const { data } = await axios.put(`https://api-operation-santa.herokuapp.com/api/user`, userData);
+		dispatch({ type: 'UPDATE_USER_SETTINGS_SUCCESS' });
+
+		dispatch(push('/settings'));
+	}
+	catch (e) {
+		dispatch({ type: 'UPDATE_USER_SETTINGS_FAIL' });
 	}
 }

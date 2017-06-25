@@ -17,7 +17,9 @@ export default function(state = initialState, action) {
 		case 'FETCH_ALL_USERS_FAIL':
 			return Object.assign({}, state, {
 				isFetchingUsers: false,
-				users: {}
+				users: {
+					error: action.error
+				}
 			});
 		default:
 			return state;

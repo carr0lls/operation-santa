@@ -1,6 +1,6 @@
 import React from 'react';
 
-const FamilyAccountRegisterForm = ({className, onSubmitForm, onUpdateForm}) => {
+const FamilyAccountRegisterForm = ({className, onSubmitForm, onUpdateForm, registerButtonClasses}) => {
 
 	return (
 		<div className={className}>
@@ -15,8 +15,8 @@ const FamilyAccountRegisterForm = ({className, onSubmitForm, onUpdateForm}) => {
 			    	<input type="text" className="form-control" name="last_name" placeholder="Enter last name" required />
 				</div>
 				<div className="form-group">
-			    	<label htmlFor="username">Email Address</label>
-			    	<input type="email" className="form-control" name="username" aria-describedby="emailHelp" placeholder="Enter email" required />
+			    	<label htmlFor="email">Email Address</label>
+			    	<input type="email" className="form-control" name="email" aria-describedby="emailHelp" placeholder="Enter email" required />
 				</div>
 				<div className="form-group">
 					<label htmlFor="phone-number" className="form-control-label">Phone Number</label>
@@ -50,7 +50,9 @@ const FamilyAccountRegisterForm = ({className, onSubmitForm, onUpdateForm}) => {
 					<input type="file" className="form-control-file" name="family_photo" aria-describedby="fileHelp" required/>
 					<small id="fileHelp" className="form-text text-muted">Please upload a photo of your family/whom would be receiving the gifts.</small>
 				</div>
-				<button type="submit" className="btn btn-danger">Submit</button>
+				<button type="submit" className="btn btn-danger btn-block btn-lg">
+					<div className={registerButtonClasses}>Sign Up</div>
+				</button>
 			</form>
 		</div>
 	);

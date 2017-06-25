@@ -35,7 +35,7 @@ class App extends React.Component {
     }    
 
     render() {
-        let navbar = <NavBar user={this.props.user} onLogout={this.logout} />;
+        const navbar = <NavBar user={this.props.user} onLogout={this.logout} />;
         
         return (
             <div>

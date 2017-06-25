@@ -4,7 +4,7 @@ import {
     About, 
     Account, 
     App, 
-    EditProfile,
+    Settings,
     Home, 
     Login,
     Profile,
@@ -16,7 +16,7 @@ export default () => (
         <Switch>
             <Route exact path="/" component={Home}/>
             <Route path="/user/:username" component={Profile}/>
-            <Route path="/settings" component={EditProfile}/>
+            <Route path="/settings" component={Settings}/>
             <Route path="/about" component={About}/>
             <Route path="/login" component={Login}/>
             <Route path="/register" component={Register}/>

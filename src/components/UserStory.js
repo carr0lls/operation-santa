@@ -1,7 +1,7 @@
 import React from 'react';
 
 const UserStory = ({children, user}) => {
-
+	
 	return (
 		<div className="user-story">
 			<h3 className="header-title">{ children }</h3>

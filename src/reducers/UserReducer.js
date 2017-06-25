@@ -6,13 +6,13 @@ const persistedState = loadState();
 const initialState = {
 	authComplete: false,
 	isFetchingUser: false,
-	isLoaded: false
-}
+	isLoaded: false,
+	error: null
+};
 
 const initialPersistedState = Object.assign({}, initialState, persistedState);
 
-export default function(state = initialPersistedState, action) {
-
+export default (state = initialPersistedState, action) => {
 	switch (action.type) {
 		case 'AUTH_BEGIN':
 			return Object.assign({}, state, {
@@ -29,7 +29,8 @@ export default function(state = initialPersistedState, action) {
 		case 'FETCH_USER_SUCCESS':
 			return Object.assign({}, state, action.response, { 
 				isFetchingUser: false,
-				isLoaded: true
+				isLoaded: true,
+				error: null
 			});
 		case 'FETCH_USER_FAIL':
 			return Object.assign({}, initialState, { 
@@ -38,7 +39,7 @@ export default function(state = initialPersistedState, action) {
 		case 'USER_LOGIN_PERSIST':
 			return Object.assign({}, state, {
 				persisted: {
-					t: state.session_token 
+					t: action.data.session_token 
 				}
 			});
 		case 'USER_LOGOUT_REQUEST':

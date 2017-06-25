@@ -1,15 +1,20 @@
 import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux';
-// import persisted from './LocalStorageReducer';
-import user from './UserReducer';
 import home from './HomeReducer';
+import login from './LoginReducer';
 import profile from './ProfileReducer';
+import register from './RegisterReducer';
+import settings from './SettingsReducer';
+import user from './UserReducer';
 
 const rootReducer = combineReducers({
 	// persisted,
-	user,
 	home,
+	login,
 	profile,
+	register,
+	settings,
+	user,
 	router: routerReducer
 });
 
