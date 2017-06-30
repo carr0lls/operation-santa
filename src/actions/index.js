@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { push } from 'react-router-redux';
+import { Constants } from '../constants';
 
 // https://stackoverflow.com/questions/34930735/pros-cons-of-using-redux-saga-with-es6-generators-vs-redux-thunk-with-es7-async
 
@@ -10,7 +11,7 @@ export const authenticate = (userData) => async (dispatch) => {
 		if (userData !== undefined) {
 			dispatch({ type: 'FETCH_USER_REQUEST' });
 
-			const { data } = await axios.post('https://api-operation-santa.herokuapp.com/api/session', userData);
+			const { data } = await axios.post('${Constants.API_FETCH_URL}session', userData);
 			dispatch({ type: 'FETCH_USER_SUCCESS', response: data });
 		}
 		dispatch({ type: 'AUTH_COMPLETE' });		
@@ -34,7 +35,7 @@ export const login = (formData) => async (dispatch) => {
 
 		dispatch({ type: 'FETCH_USER_REQUEST' });
 
-		const { data } = await axios.post(`https://api-operation-santa.herokuapp.com/api/session`, formData);
+		const { data } = await axios.post(`${Constants.API_FETCH_URL}session`, formData);
 		dispatch({ type: 'FETCH_USER_SUCCESS', response: data });
 
 		dispatch({ type: 'LOGIN_SUCCESS' });
@@ -60,7 +61,7 @@ export const fetchUserProfile = (uid) => async (dispatch) => {
 	try {
 		dispatch({ type: 'FETCH_USER_PROFILE_REQUEST' });
 
-		const { data } = await axios.get(`https://api-operation-santa.herokuapp.com/api/user/${uid}`);
+		const { data } = await axios.get(`${Constants.API_FETCH_URL}user/${uid}`);
 		dispatch({ type: 'FETCH_USER_PROFILE_SUCCESS', response: data });
 	}
 	catch (e) {
@@ -74,7 +75,7 @@ export const fetchAllUsers = (options) => async (dispatch) => {
 	try {
 		dispatch({ type: 'FETCH_ALL_USERS_REQUEST'});
 
-		const { data } = await axios.get(`https://api-operation-santa.herokuapp.com/api/user?account_type=${options.account_type}`)
+		const { data } = await axios.get(`${Constants.API_FETCH_URL}user?account_type=${options.account_type}`)
 		dispatch({ type: 'FETCH_ALL_USERS_SUCCESS', response: data });
 	}
 	catch (e) {
@@ -93,7 +94,7 @@ export const getEstimateFromPostmates = (deliveryData) => async (dispatch) => {
 	try {
 		dispatch({ type: 'FETCH_POSTMATES_ESTIMATE_REQUEST' });
 
-		const { data } = await axios.post(`https://api-operation-santa.herokuapp.com/api/postmates/get_estimate`, deliveryData);
+		const { data } = await axios.post(`${Constants.API_FETCH_URL}postmates/get_estimate`, deliveryData);
 		// Format response data
 		const fee = data.fee.toString();
 		data.fee = fee.substring(0, fee.length-2) + "." + fee.substring(fee.length-2, fee.length);
@@ -115,7 +116,7 @@ export const createPostmatesDelivery = (deliveryData) => async (dispatch) => {
 		dispatch({ type: 'CREATE_POSTMATES_DELIVERY_REQUEST' });
 		$('.modal-footer button div').addClass('progress');	
 
-		const { data } = await axios.post(`https://api-operation-santa.herokuapp.com/api/postmates/create_delivery`, deliveryData);
+		const { data } = await axios.post(`${Constants.API_FETCH_URL}postmates/create_delivery`, deliveryData);
 		dispatch({ type: 'CREATE_POSTMATES_DELIVERY_SUCCESS', response: data.status });
 
 		// Move modal to page 3
@@ -145,7 +146,7 @@ export const registerNewUser = (userData) => async (dispatch) => {
 	try {
 		dispatch({ type: 'CREATE_NEW_USER_REQUEST' });
 
-		const { data } = await axios.post(`https://api-operation-santa.herokuapp.com/api/user`, userData);
+		const { data } = await axios.post(`${Constants.API_FETCH_URL}user`, userData);
 		dispatch({ type: 'CREATE_NEW_USER_SUCCESS' });
 
 		dispatch({ type: 'USER_LOGIN_PERSIST', data: data });
@@ -171,7 +172,7 @@ export const updateUserSettings = (uid, userData) => async (dispatch) => {
 	try {
 		dispatch({ type: 'UPDATE_USER_SETTINGS_REQUEST' });
 
-		const { data } = await axios.put(`https://api-operation-santa.herokuapp.com/api/user/${uid}`, userData);
+		const { data } = await axios.put(`${Constants.API_FETCH_URL}user/${uid}`, userData);
 		dispatch({ type: 'UPDATE_USER_SETTINGS_SUCCESS' });
 
 		dispatch(push('/settings'));
