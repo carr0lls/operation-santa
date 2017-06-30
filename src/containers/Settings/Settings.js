@@ -12,7 +12,7 @@ class Settings extends React.Component {
 		this.updateForm = this.updateForm.bind(this);
 	}
 	handleUserUpdate(userData) {
-		this.props.dispatch(updateUserSettings(userData));
+		this.props.dispatch(updateUserSettings(this.props.user.id, userData));
 	}
 	submitForm(e) {
 		e.preventDefault();

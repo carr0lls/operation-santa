@@ -95,6 +95,15 @@ class Profile extends React.Component {
 						? profile.user.first_name + '\'s family' 
 						: profile.user.first_name;
 
+		let wishlist;
+
+		if (this.props.profile.user.wish_list) {
+			wishlist = this.props.profile.user.wish_list.split(',');
+			wishlist = wishlist.map(function(item, index) {
+				return <li key={index}>{item}</li>;
+			});
+		}
+
 		switch (this.props.profile.modal.step) {
 			case 1:
 				modal_body = (
@@ -160,7 +169,7 @@ class Profile extends React.Component {
 
 			default:
 				break;
-		} 		
+		} 
 
 		return (
     		<div className="profile row p-1">
@@ -168,9 +177,7 @@ class Profile extends React.Component {
 				<div>
 					<h1>Wishlist</h1>
 					<ul>
-						<li>iPod</li>
-						<li>Barbie</li>
-						<li>Legos</li>
+						{ wishlist }
 					</ul>
 				</div>
 				<div className="donation-modal">

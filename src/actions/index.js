@@ -1,8 +1,6 @@
 import axios from 'axios';
 import { push } from 'react-router-redux';
-// axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
-// axios.defaults.headers.put['Content-Type'] = 'text/plain';
-// console.log(axios.defaults.headers);
+
 // https://stackoverflow.com/questions/34930735/pros-cons-of-using-redux-saga-with-es6-generators-vs-redux-thunk-with-es7-async
 
 export const authenticate = (userData) => async (dispatch) => {
@@ -169,11 +167,11 @@ export const updateUserSettingsForm = (formData) => {
 	return { type: 'UPDATE_USER_SETTINGS_FORM', data: formData }
 }
 
-export const updateUserSettings = (userData) => async (dispatch) => {
+export const updateUserSettings = (uid, userData) => async (dispatch) => {
 	try {
 		dispatch({ type: 'UPDATE_USER_SETTINGS_REQUEST' });
 
-		const { data } = await axios.put(`https://api-operation-santa.herokuapp.com/api/user`, userData);
+		const { data } = await axios.put(`https://api-operation-santa.herokuapp.com/api/user/${uid}`, userData);
 		dispatch({ type: 'UPDATE_USER_SETTINGS_SUCCESS' });
 
 		dispatch(push('/settings'));

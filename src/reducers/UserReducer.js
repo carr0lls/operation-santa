@@ -34,6 +34,7 @@ export default (state = initialPersistedState, action) => {
 			});
 		case 'FETCH_USER_FAIL':
 			return Object.assign({}, initialState, { 
+				authComplete: true,
 				error: action.error 
 			});
 		case 'USER_LOGIN_PERSIST':
