@@ -43,8 +43,12 @@ export default (state = initialPersistedState, action) => {
 					t: action.data.session_token 
 				}
 			});
-		case 'USER_LOGOUT_REQUEST':
+		case 'USER_LOGOUT_SUCCESS':
 			return Object.assign({}, initialState);
+		case 'USER_LOGOUT_FAIL':
+			return Object.assign({}, state, {
+				error: action.error
+			});
 		default:
 			return state;
 	}

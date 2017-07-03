@@ -15,7 +15,7 @@ class App extends React.Component {
         this.props.dispatch(login(user));
     }
     logout() {
-        this.props.dispatch(logout());
+        this.props.dispatch(logout(this.props.user));
     }
     authenticate(user) {
         if (user.persisted)

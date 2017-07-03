@@ -11,7 +11,7 @@ export const authenticate = (userData) => async (dispatch) => {
 		if (userData !== undefined) {
 			dispatch({ type: 'FETCH_USER_REQUEST' });
 
-			const { data } = await axios.post('${Constants.API_FETCH_URL}session', userData);
+			const { data } = await axios.post(`${Constants.API_FETCH_URL}session`, userData);
 			dispatch({ type: 'FETCH_USER_SUCCESS', response: data });
 		}
 		dispatch({ type: 'AUTH_COMPLETE' });		
@@ -51,10 +51,21 @@ export const login = (formData) => async (dispatch) => {
 	}
 }
 
-export const logout = () => (dispatch) => {
-	dispatch({ type: 'USER_LOGOUT_REQUEST' });
+export const logout = ({session_token}) => async (dispatch) => {
+	try {
+		dispatch({ type: 'USER_LOGOUT_REQUEST' });
 
-	dispatch(push('/'));
+		const config = { data: { session_token } };
+
+		const { data } = await axios.delete(`${Constants.API_FETCH_URL}session`, config);
+
+		dispatch({ type: 'USER_LOGOUT_SUCCESS' });
+
+		dispatch(push('/'));
+	}
+	catch (e) {
+		dispatch({ type: 'USER_LOGOUT_FAIL', error: e });
+	}
 }
 
 export const fetchUserProfile = (uid) => async (dispatch) => {
