@@ -26,18 +26,18 @@ class Profile extends React.Component {
 
 		if (this.props.profile.modal.step === 1) {
 			const { pickup_address } = this.props.profile.modal.form;
-			const { address } = this.props.profile.user;
+			const { id: dropoff_uid } = this.props.profile.user;
 
 			const  data = { 
 				pickup_address, 
-				dropoff_address: address
+				dropoff_uid
 			};
 
 			this.getDeliveryEstimate(data);
 		}
 		else if (this.props.profile.modal.step === 2) {
 			const { pickup_address, pickup_name, pickup_phone_number, manifest } = this.props.profile.modal.form;
-			const { address, first_name, phone_number } = this.props.profile.user;
+			const { id: dropoff_uid } = this.props.profile.user;
 			const { estimate } = this.props.profile.delivery;
 			
 			const data = { 
@@ -45,9 +45,7 @@ class Profile extends React.Component {
 				pickup_name, 
 				pickup_phone_number, 
 				manifest,
-				dropoff_address: address,
-				dropoff_name: first_name,
-				dropoff_phone_number: phone_number,
+				dropoff_uid,
 				quote_id: estimate.id
 			};
 
