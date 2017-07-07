@@ -12,6 +12,14 @@ class Settings extends React.Component {
 		this.updateForm = this.updateForm.bind(this);
 	}
 	handleUserUpdate(userData) {
+		const wishlist = [];
+		Object.entries(userData).forEach(([name, value]) => {
+			if (name.indexOf('wishlist-item') !== -1) {
+				wishlist.push(value.trim());
+				delete userData[name];
+			}
+		});
+		userData['wish_list'] = wishlist.join(',');
 		this.props.dispatch(updateUserSettings(this.props.user.id, userData));
 	}
 	submitForm(e) {

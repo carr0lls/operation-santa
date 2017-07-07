@@ -32,8 +32,7 @@ npm start
 And visit <http://localhost:4000/> to access GUI.
 
 ## Todo
-- Build edit profile page
-- Family wishlist
+- Refactor excessive Container content into smaller components
 
 ## Preview
 

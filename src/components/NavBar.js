@@ -26,6 +26,9 @@ const NavBar = ({user, onLogout}) => {
                     <NavigationLink className="nav-link" to={'/user/' + user.id}>{user['first_name']}</NavigationLink>
                 </li>
                 <li className="nav-item">
+                    <NavigationLink className="nav-link" to="/settings">Settings</NavigationLink>
+                </li>
+                <li className="nav-item">
                     <a className="nav-link" href="#" onClick={onLogout}>Logout</a>
                 </li>
             </ul>
