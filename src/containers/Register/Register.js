@@ -5,25 +5,19 @@ import { FamilyAccountRegisterForm, DonorAccountRegisterForm } from '../../compo
 import { toggleRegistrationForm, updateRegistrationForm, registerNewUser } from '../../actions';
 
 class Register extends React.Component {
-	constructor(props) {
-		super(props);
-
-		this.handleRegistration = this.handleRegistration.bind(this);
-		this.toggleFormOne = this.toggleFormOne.bind(this);
-		this.toggleFormTwo = this.toggleFormTwo.bind(this);
-		this.updateForm = this.updateForm.bind(this);
-		this.submitForm = this.submitForm.bind(this);
-	}
-	handleRegistration(userData) {
+	handleRegistration = userData => {
 		this.props.dispatch(registerNewUser(userData));
-	}
-	toggleFormOne() {
+	};
+
+	toggleFormOne = () => {
 		this.props.dispatch(toggleRegistrationForm(1));
-	}
-	toggleFormTwo() {
+	};
+
+	toggleFormTwo = () => {
 		this.props.dispatch(toggleRegistrationForm(2));
-	}
-	updateForm(e) {
+	};
+	
+	updateForm = e => {
 		const newFormState = this.props.register.form;
 
 		if (e.target.name === 'family_photo') {
@@ -38,13 +32,14 @@ class Register extends React.Component {
 			newFormState[this.props.register.active][e.target.name] = e.target.value;
 			this.props.dispatch(updateRegistrationForm(newFormState));
 		}
-	}
-	submitForm(e) {
+	};
+
+	submitForm = e => {
 		e.preventDefault();
 		const data = this.props.register.form[this.props.register.active];
 
 		this.handleRegistration(data);
-	}
+	};
 
 	render() {
 		const toggleOneClasses = classnames('btn btn-secondary', {'active': this.props.register.active === 1});
@@ -70,12 +65,12 @@ class Register extends React.Component {
 			</div>
 		);
 	}
-};
+}
 
 function mapStateToProps({ register }) {
 	return {
-		register
-	}
-}
+		register,
+	};
+};
 
 export default connect(mapStateToProps)(Register);

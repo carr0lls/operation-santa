@@ -1,7 +1,13 @@
 import React from 'react';
 import classnames from 'classnames';
 
-const EditProfileForm = ({user, className, onSubmitForm, onUpdateForm, isUpdating}) => {
+const EditProfileForm = ({
+	user,
+	className,
+	onSubmitForm,
+	onUpdateForm,
+	isUpdating,
+}) => {
 	const updatingBtnProgressClasses = classnames({'progress': isUpdating});
 
 	return (

@@ -1,21 +1,13 @@
 import React from 'react';
 
 export default class Account extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = {};
+	renderData = () => {
 
-		this.renderData = this.renderData.bind(this);
-		this.submitForm = this.submitForm.bind(this);
-	}
+	};
 
-	renderData() {
-
-	}
-
-	submitForm() {
+	submitForm = () => {
 		
-	}
+	};
 
 	render() {
 		return (
@@ -24,4 +16,4 @@ export default class Account extends React.Component {
 			</div>
 		);
 	}
-};
+}

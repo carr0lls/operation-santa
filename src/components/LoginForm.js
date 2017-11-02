@@ -1,7 +1,7 @@
 import React from 'react';
 import classnames from 'classnames';
 
-const LoginForm = ({onSubmitForm, onUpdateForm, isLoggingIn}) => {
+const LoginForm = ({ onSubmitForm, onUpdateForm, isLoggingIn }) => {
 	const loginBtnProgressClasses = classnames({'progress': isLoggingIn});
 
 	return (

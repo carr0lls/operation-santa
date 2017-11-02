@@ -4,7 +4,7 @@ import { Constants } from '../constants';
 
 // https://stackoverflow.com/questions/34930735/pros-cons-of-using-redux-saga-with-es6-generators-vs-redux-thunk-with-es7-async
 
-export const authenticate = (userData) => async (dispatch) => {
+const authenticate = userData => async (dispatch) => {
 	dispatch({ type: 'AUTH_BEGIN' });
 
 	try {
@@ -23,13 +23,13 @@ export const authenticate = (userData) => async (dispatch) => {
 
 		dispatch(push('/'));
 	}	
-}
+};
 
-export const skipAuthentication = () => {
+const skipAuthentication = () => {
 	return { type: 'AUTH_COMPLETE' };
-}
+};
 
-export const login = (formData) => async (dispatch) => {
+const login = formData => async (dispatch) => {
 	try {
 		dispatch({ type: 'LOGIN_REQUEST' });
 
@@ -49,9 +49,9 @@ export const login = (formData) => async (dispatch) => {
 
 		dispatch({ type: 'LOGIN_FAIL' });
 	}
-}
+};
 
-export const logout = ({session_token}) => async (dispatch) => {
+const logout = ({ session_token }) => async (dispatch) => {
 	try {
 		dispatch({ type: 'USER_LOGOUT_REQUEST' });
 
@@ -66,9 +66,9 @@ export const logout = ({session_token}) => async (dispatch) => {
 	catch (e) {
 		dispatch({ type: 'USER_LOGOUT_FAIL', error: e });
 	}
-}
+};
 
-export const fetchUserProfile = (uid) => async (dispatch) => {
+const fetchUserProfile = uid => async (dispatch) => {
 	try {
 		dispatch({ type: 'FETCH_USER_PROFILE_REQUEST' });
 
@@ -80,9 +80,9 @@ export const fetchUserProfile = (uid) => async (dispatch) => {
 		// user does not exist, move back to home page
 		dispatch(push('/'));
 	}
-}
+};
 
-export const fetchAllUsers = (options) => async (dispatch) => {
+const fetchAllUsers = options => async (dispatch) => {
 	try {
 		dispatch({ type: 'FETCH_ALL_USERS_REQUEST'});
 
@@ -92,16 +92,16 @@ export const fetchAllUsers = (options) => async (dispatch) => {
 	catch (e) {
 		dispatch({ type: 'FETCH_ALL_USERS_FAIL', error: e });
 	}
-}
+};
 
-export const setModalStep = (step = 1) => {
+const setModalStep = (step = 1) => {
 	return { 
 		type: 'SET_MODAL_STEP',
 		data: step
 	}	
-}
+};
 
-export const getEstimateFromPostmates = (deliveryData) => async (dispatch) => {
+const getEstimateFromPostmates = deliveryData => async (dispatch) => {
 	try {
 		dispatch({ type: 'FETCH_POSTMATES_ESTIMATE_REQUEST' });
 
@@ -120,9 +120,9 @@ export const getEstimateFromPostmates = (deliveryData) => async (dispatch) => {
 		dispatch({ type: 'FETCH_POSTMATES_ESTIMATE_FAIL', error: e.message });
 		alert(e.message);
 	}
-}
+};
 
-export const createPostmatesDelivery = (deliveryData) => async (dispatch) => {
+const createPostmatesDelivery = deliveryData => async (dispatch) => {
 	try {
 		dispatch({ type: 'CREATE_POSTMATES_DELIVERY_REQUEST' });
 		$('.modal-footer button div').addClass('progress');	
@@ -139,21 +139,21 @@ export const createPostmatesDelivery = (deliveryData) => async (dispatch) => {
 		$('.modal-footer button div').removeClass('progress');
 		alert(e.message);
 	}
-}
+};
 
-export const updateDeliveryModalForm = (formData) => {
+const updateDeliveryModalForm = formData => {
 	return { type: 'UPDATE_DELIVERY_MODAL_FORM', data: formData };
-}
+};
 
-export const toggleRegistrationForm = (formNumber) => {
+const toggleRegistrationForm = formNumber => {
 	return { type: 'TOGGLE_REGISTRATION_FORM', data: formNumber };
-}
+};
 
-export const updateRegistrationForm = (formData) => {
+const updateRegistrationForm = formData => {
 	return { type: 'UPDATE_REGISTRATION_FORM', data: formData };
-}
+};
 
-export const registerNewUser = (userData) => async (dispatch) => {
+const registerNewUser = userData => async (dispatch) => {
 	try {
 		dispatch({ type: 'CREATE_NEW_USER_REQUEST' });
 
@@ -169,17 +169,17 @@ export const registerNewUser = (userData) => async (dispatch) => {
 		dispatch({ type: 'CREATE_NEW_USER_FAIL', error: e.message });
 		alert(e.message);
 	}
-}
+};
 
-export const updateLoginForm = (formData) => {
+const updateLoginForm = formData => {
 	return { type: 'UPDATE_LOGIN_FORM', data: formData };
-}
+};
 
-export const updateUserSettingsForm = (formData) => {
+const updateUserSettingsForm = formData => {
 	return { type: 'UPDATE_USER_SETTINGS_FORM', data: formData }
-}
+};
 
-export const updateUserSettings = (uid, userData) => async (dispatch) => {
+const updateUserSettings = (uid, userData) => async (dispatch) => {
 	try {
 		dispatch({ type: 'UPDATE_USER_SETTINGS_REQUEST' });
 
@@ -191,4 +191,42 @@ export const updateUserSettings = (uid, userData) => async (dispatch) => {
 	catch (e) {
 		dispatch({ type: 'UPDATE_USER_SETTINGS_FAIL' });
 	}
-}
+};
+
+export {
+	authenticate,
+	skipAuthentication,
+	login,
+	logout,
+	fetchUserProfile,
+	fetchAllUsers,
+	setModalStep,
+	getEstimateFromPostmates,
+	createPostmatesDelivery,
+	updateDeliveryModalForm,
+	toggleRegistrationForm,
+	updateRegistrationForm,
+	registerNewUser,
+	updateLoginForm,
+	updateUserSettingsForm,
+	updateUserSettings,
+};
+
+export default {
+	authenticate,
+	skipAuthentication,
+	login,
+	logout,
+	fetchUserProfile,
+	fetchAllUsers,
+	setModalStep,
+	getEstimateFromPostmates,
+	createPostmatesDelivery,
+	updateDeliveryModalForm,
+	toggleRegistrationForm,
+	updateRegistrationForm,
+	registerNewUser,
+	updateLoginForm,
+	updateUserSettingsForm,
+	updateUserSettings,
+};

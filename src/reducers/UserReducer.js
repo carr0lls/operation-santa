@@ -52,4 +52,4 @@ export default (state = initialPersistedState, action) => {
 		default:
 			return state;
 	}
-}
+};

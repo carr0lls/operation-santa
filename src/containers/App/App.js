@@ -4,25 +4,20 @@ import { authenticate, skipAuthentication, login, logout } from '../../actions';
 import { NavBar } from '../../components';
 
 class App extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.login = this.login.bind(this);
-        this.logout = this.logout.bind(this);
-        this.authenticate = this.authenticate.bind(this);
-    }
-    login(user) {
+    login = user => {
         this.props.dispatch(login(user));
-    }
-    logout() {
+    };
+
+    logout = () => {
         this.props.dispatch(logout(this.props.user));
-    }
-    authenticate(user) {
+    };
+
+    authenticate = user => {
         if (user.persisted)
             this.props.dispatch(authenticate({ session_token: user.persisted.t }));
         else
             this.props.dispatch(skipAuthentication());
-    }
+    };
 
     componentDidMount() {
         this.authenticate(this.props.user);
@@ -46,13 +41,13 @@ class App extends React.Component {
             </div>
         );
     }
-};
+}
 
 function mapStateToProps({ user, router }) {
     return { 
         user,
-        router
-    }
-}
+        router,
+    };
+};
 
 export default connect(mapStateToProps)(App);

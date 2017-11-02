@@ -5,12 +5,7 @@ import { UserStory } from '../../components';
 import { fetchAllUsers } from '../../actions';
 
 class Home extends React.Component {
-	constructor(props) {
-		super(props);
-
-		this.fetchData = this.fetchData.bind(this);
-	}
-	fetchData() {
+	fetchData = () => {
 		this.props.dispatch(fetchAllUsers({ account_type: 'family' }));
 	}
 
@@ -40,10 +35,12 @@ class Home extends React.Component {
 			</div>
 		);
 	}
-};
+}
 
 function mapStateToProps({ home }) {
-  return { home };
-}
+  return { 
+  	home,
+  };
+};
 
 export default connect(mapStateToProps)(Home);

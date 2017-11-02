@@ -11,7 +11,7 @@ export const loadState = () => {
 	catch (e) {
 		return undefined;
 	}
-}
+};
 
 export const saveState = ({ persisted }) => {
 	try {
@@ -26,4 +26,4 @@ export const saveState = ({ persisted }) => {
 	catch (e) {
 
 	}
-}
+};

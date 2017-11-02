@@ -4,26 +4,20 @@ import { LoginForm } from '../../components';
 import { login, updateLoginForm } from '../../actions';
 
 class Login extends React.Component {
-	constructor(props) {
-		super(props);
-
-		this.handleUserLogin = this.handleUserLogin.bind(this);
-		this.updateForm = this.updateForm.bind(this);
-		this.submitForm = this.submitForm.bind(this);
-	}
-	handleUserLogin(user) {
+	handleUserLogin = user => {
 		this.props.dispatch(login(user));
-	}
-	updateForm(e) {
+	};
+
+	updateForm = e => {
 		const newFormState = this.props.login.form;
 		newFormState[e.target.name] = e.target.value;
 		this.props.dispatch(updateLoginForm(newFormState));
-	}
-	submitForm(e) {
-		e.preventDefault();
+	};
 
+	submitForm = e => {
+		e.preventDefault();
 		this.handleUserLogin(this.props.login.form);
-	}
+	};
 
 	render() {
 		return (
@@ -32,12 +26,12 @@ class Login extends React.Component {
 			</div>
 		);
 	}
-};
+}
 
 function mapStateToProps({ login }) {
 	return { 
-		login
-	}
-}
+		login,
+	};
+};
 
 export default connect(mapStateToProps)(Login);

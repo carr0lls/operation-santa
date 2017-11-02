@@ -15,7 +15,7 @@ const rootReducer = combineReducers({
 	register,
 	settings,
 	user,
-	router: routerReducer
+	router: routerReducer,
 });
 
 export default rootReducer;

@@ -1,9 +1,9 @@
 const initialState = {
 	isFetchingUsers: false,
 	users: {}
-}
+};
 
-export default function(state = initialState, action) {
+export default (state = initialState, action) => {
 	switch (action.type) {
 		case 'FETCH_ALL_USERS_REQUEST':
 			return Object.assign({}, state, {
@@ -24,4 +24,4 @@ export default function(state = initialState, action) {
 		default:
 			return state;
 	}
-}
+};

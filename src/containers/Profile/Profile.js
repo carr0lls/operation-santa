@@ -11,17 +11,7 @@ import {
 } from '../../actions';
 
 class Profile extends React.Component {
-	constructor(props) {
-		super(props);
-
-		this.handleDonate = this.handleDonate.bind(this);
-		this.updateModalForm = this.updateModalForm.bind(this);
-		this.setModal = this.setModal.bind(this);
-		this.resetModal = this.resetModal.bind(this);
-		this.getDeliveryEstimate = this.getDeliveryEstimate.bind(this);
-		this.createDelivery = this.createDelivery.bind(this);
-	}
-	handleDonate(e) {
+	handleDonate = e => {
 		e.preventDefault();
 
 		if (this.props.profile.modal.step === 1) {
@@ -30,7 +20,7 @@ class Profile extends React.Component {
 
 			const  data = { 
 				pickup_address, 
-				dropoff_uid
+				dropoff_uid,
 			};
 
 			this.getDeliveryEstimate(data);
@@ -46,7 +36,7 @@ class Profile extends React.Component {
 				pickup_phone_number, 
 				manifest,
 				dropoff_uid,
-				quote_id: estimate.id
+				quote_id: estimate.id,
 			};
 
 			this.createDelivery(data);
@@ -54,24 +44,29 @@ class Profile extends React.Component {
 		else {
 			this.setModal(1);
 		}
-	}
-	updateModalForm(e) {
+	};
+
+	updateModalForm = e => {
 		const newState = this.props.profile.modal.form;
 		newState[e.target.name] = e.target.value;
 		this.props.dispatch(updateDeliveryModalForm(newState));
-	}
-	setModal(step) {
+	};
+
+	setModal = step => {
 		this.props.dispatch(setModalStep(step));
-	}
-	resetModal(e) {
+	};
+
+	resetModal = e => {
 		this.setModal(1);
-	}
-	getDeliveryEstimate(deliveryData) {
+	};
+
+	getDeliveryEstimate = deliveryData => {
 		this.props.dispatch(getEstimateFromPostmates(deliveryData));
-	}
-	createDelivery(deliveryData) {
+	};
+
+	createDelivery =deliveryData => {
 		this.props.dispatch(createPostmatesDelivery(deliveryData));		
-	}
+	};
 
 	componentDidMount() {
 		this.props.dispatch(fetchUserProfile(this.props.match.params.username));
@@ -199,13 +194,13 @@ class Profile extends React.Component {
 			</div>
 		);
 	}
-};
+}
 
 function mapStateToProps({ profile, router }) {
 	return {
 		profile,
-		router
-	}
-}
+		router,
+	};
+};
 
 export default connect(mapStateToProps)(Profile);

@@ -4,14 +4,7 @@ import { EditProfileForm } from '../../components';
 import { updateUserSettings, updateUserSettingsForm } from '../../actions';
 
 class Settings extends React.Component {
-	constructor(props) {
-		super(props);
-
-		this.handleUserUpdate = this.handleUserUpdate.bind(this);
-		this.submitForm = this.submitForm.bind(this);
-		this.updateForm = this.updateForm.bind(this);
-	}
-	handleUserUpdate(userData) {
+	handleUserUpdate = userData => {
 		const wishlist = [];
 		Object.entries(userData).forEach(([name, value]) => {
 			if (name.indexOf('wishlist-item') !== -1) {
@@ -21,13 +14,14 @@ class Settings extends React.Component {
 		});
 		userData['wish_list'] = wishlist.join(',');
 		this.props.dispatch(updateUserSettings(this.props.user.id, userData));
-	}
-	submitForm(e) {
-		e.preventDefault();
-		
+	};
+
+	submitForm = e => {
+		e.preventDefault();	
 		this.handleUserUpdate(this.props.settings.form);
-	}
-	updateForm(e) {
+	};
+
+	updateForm = e => {
 		const newFormState = this.props.settings.form;
 		newFormState[e.target.name] = e.target.value;
 		
@@ -43,13 +37,13 @@ class Settings extends React.Component {
 				</div>
 			);
 	}
-};
+}
 
 function mapStateToProps({ settings, user }) {
 	return { 
 		settings,
-		user 
-	}
-}
+		user,
+	};
+};
 
 export default connect(mapStateToProps)(Settings);
