@@ -63,7 +63,6 @@
     "babel-preset-react": "^6.16.0",
     "babel-preset-stage-1": "^6.16.0",
     "redux-devtools-extension": "^2.13.2",
-    "redux-logger": "^3.0.6",
     "webpack": "^1.13.3"
   }
 }
