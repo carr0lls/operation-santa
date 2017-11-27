@@ -1,4 +1,5 @@
 import { createStore, applyMiddleware } from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
 import reduxPromise from 'redux-promise';
 import reduxThunk from 'redux-thunk';
 import logger from 'redux-logger';
@@ -10,5 +11,7 @@ const reactRouterMiddleware = routerMiddleware(history);
 
 export default createStore(
 	reducers,
-	applyMiddleware(reactRouterMiddleware, reduxPromise, reduxThunk, logger)
+	composeWithDevTools(
+		applyMiddleware(reactRouterMiddleware, reduxPromise, reduxThunk, logger)
+	),
 );
